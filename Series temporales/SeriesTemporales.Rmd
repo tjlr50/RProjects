@@ -1,0 +1,293 @@
+---
+title: "Series Temporales"
+author: "Tomas Lemus"
+date: "28/11/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r  include=FALSE}
+#install.packages("TTR")
+library(TTR)
+#install.packages("forecast")
+library(forecast)
+library(readr)
+library(tidyverse)
+library(dplyr)
+#install.packages("readxl") # CRAN version
+library(readxl)
+library(lessR)
+```
+# Proyecto series temporales
+
+## Primera Parte:
+
+### Analisis de serie temporal de fabricación de un producto electrónico.
+
+```{r}
+```
+
+Importar el dataset Datos.xlsx
+```{r}
+df = read_excel("Datos.xlsx")
+head(df)
+```
+
+```{r}
+dato= df$"2002M02"
+class(dato)
+```
+```{r}
+data <- as.data.frame(t(df))
+ts.n1 <- ts(data, frequency = 12, start = c(2002,1))
+print(class(ts.n1))
+print(ts.n1)
+
+```
+Con la observación anterior es posible notar como los tipos de datos ya no son numericos, ahora son de serie temporal y se encuentran más estructurados (Años y meses). Procederemos a un analisis a partir de la visualización de la serie temporal.
+```{r}
+plot.ts(ts.n1)
+```
+<br>
+Suavizado: Holt Winters.
+Esta técnica de suavizado utiliza un conjunto de estimaciones recursivas a partir de la serie histórica. Estas estimaciones utilizan una constante de nivel, una constante de tendencia, y una constante estacional multiplicativa. Como veremos esta tecnica ofrece un ajuste estacional (s=12  en el caso de datos mensuales).
+```{r}
+suavi  = HoltWinters(ts.n1)
+suavi
+```
+```{r}
+plot(suavi)
+```
+
+Analisis inicial: Inicialmente podemos observar algunos patrones que no deberiamos apresurarnos a determinar estacionalidad, ademas, la tendencia puede ser confusa porque incialmente parece ser creciente con unos picos notablemente altos, pero desde el 2010 los picos dejan de ser tan notables y la tendencia parece cambiar de dirección (decreciente), aunque finalmente, a partir del 2015 parece elevarse un poco.
+
+Al describir series de tiempo, utilizamos palabras como "tendencia" y "estacionalidad", que deben definirse con más cuidado. Basado en los estudios y materiales de clase podemos decir lo siguiente:
+ 
+Tendencia
+Existe una tendencia cuando hay un aumento o disminución a largo plazo en los datos. No tiene por qué ser lineal. A veces nos referiremos a una tendencia como "cambio de dirección", cuando puede pasar de una tendencia creciente a una tendencia decreciente.
+
+Estacional
+Un patrón estacional ocurre cuando una serie de tiempo se ve afectada por factores estacionales como la época del año o el día de la semana. (frecuencia fija)
+
+Cíclico
+Un ciclo se produce cuando la observación de los datos suben y bajan sin una frecuencia fija. Estas fluctuaciones suelen deberse a condiciones económicas o relacionadas con el "ciclo económico". La duración de estas fluctuaciones suele ser al menos 2 años.
+
+<br>
+A partir de la descomposición de la serie temporal se pude obtener mayor claridad sobre la tendencia, estacional y el factor de aleatoriedad que puede presentar la fabricación del producto.
+
+```{r}
+n1.ts.desc = decompose(ts.n1)
+plot(n1.ts.desc, xlab='Año')
+```
+```{r}
+plot(n1.ts.desc$trend, xlab='Año', ylab='Cantidad') +
+title("Tendencia para la serie temporal de  fabricación")
+```
+<br>
+A través del plot estacional se pueden observar estaciones de la serie por cada mes en los diferentes años, lo cual permite mejor visualización sobre el comportamiento en la fabricación.
+```{r}
+ggseasonplot(ts.n1, year.labels=TRUE, year.labels.left=TRUE) +
+  ylab("Cantidad") +
+  ggtitle("Plot Estacional de fabricación de un producto electrónico")+
+  theme(plot.title = element_text(hjust = 0.5))
+```
+<br>
+Subseries estacional:
+
+El siguiente gráfico enfatiza los patrones estacionales es donde los datos de cada temporada se recopilan juntos en mini gráficos de tiempo separados, en los cuales podemos observar la cantidad media de fabricación del producto por cada mes.
+```{r}
+ggsubseriesplot(ts.n1) +
+  ylab("Cantidad") +
+  ggtitle("Subseries Estacional: Fabricación de un producto electrónico")+
+  theme(plot.title = element_text(hjust = 0.5))
+```
+<br>
+Autocorrelograma
+El siguiente gráfico nos permite representar la funcion de autocorrelación a través de los picos, debido al patrón estacional de los datos. La linea azul indica una correlación significativamente diferente de cero.
+```{r}
+ggAcf(ts.n1)
+```
+```{r}
+library(forecast)
+```
+### Predicción para instantes futuros (un año)
+<br>
+```{r}
+
+```
+
+#### Método de la media
+
+```{r}
+mdata.ts.p1 <- meanf(ts.n1,12)
+plot(mdata.ts.p1)
+```
+#### Metodo Naive.
+
+Este método sencilla nos muestra un instante futuro que utiliza como predictor el último instante.El intervalo de color morado nos muestra la incertidumbre del valor que a menor amplitud nos da mayor probabilidad de que el valor se encuentre en esta zona.
+```{r}
+mdata.ts.p1 <- naive(ts.n1, 12)
+plot(mdata.ts.p1)
+
+```
+Seasonal naïve 
+Este método utiliza el último año para predecir según estaciones observadas en el último año.
+```{r}
+mdata.ts.p1 <- snaive(ts.n1, 12)
+plot(mdata.ts.p1)  
+```
+Drift method
+Este método se basa en el anterior y que la cantidad de cambio en el tiempo se establece como el cambio medio en los datos históricos.
+```{r}
+mdata.ts.p1 <- rwf(ts.n1, 20, drift=TRUE)
+plot(mdata.ts.p1)
+```
+Para realizar un mejor análisis vamos a integrar los metodos utilizados en un gráfica para predecir valores futuros a un año.
+```{r}
+autoplot(ts.n1)+forecast::autolayer(meanf(ts.n1,h=12),PI=FALSE,series="Mean") + forecast::autolayer(naive(ts.n1,h=12),PI=FALSE,series="Naive") +
+  forecast::autolayer(snaive(ts.n1,h=12),PI=FALSE,series="Seasonal  naive") + 
+  forecast::autolayer(rwf(ts.n1,drift=TRUE,h=12),PI=FALSE,series="Drift") +
+  ggtitle("Pronóstico para la fabricación de un producto electrónico para un año")+xlab("Año") + ylab("Cantidad") + guides(colour=guide_legend(title="Metodo"))
+```
+  
+```{r}
+autoplot(ts.n1)+forecast::autolayer(meanf(ts.n1,h=60),PI=FALSE,series="Mean") + forecast::autolayer(naive(ts.n1,h=60),PI=FALSE,series="Naive") +
+  forecast::autolayer(snaive(ts.n1,h=60),PI=FALSE,series="Seasonal  naive") + 
+  forecast::autolayer(rwf(ts.n1,drift=TRUE,h=60),PI=FALSE,series="Drift") +
+  ggtitle("Pronóstico para la fabricación de un producto electrónico para 5 años")+xlab("Año") + ylab("Cantidad") + guides(colour=guide_legend(title="Metodo"))
+```
+### Conclusión
+Los métodos de predicciones que se utilizaron anteriormente pueden ser interesantes, sin embargo pueden ser muy simples para largas estimaciones de tiempo.
+
+Al graficar el pronóstico, se puede observar que el método de la media (linea roja) no ayuda mucho debido a que nuestra serie tiene tendencia, ni el caso de naive ya que de igual forma solo desplaza una línea sobre la última observación. Finalmente, el método que mejor pronostica para este caso es el Naive estacional, pues este replica el comportamiento del último año de la serie con su estacionalidad.
+
+
+## Segunda Parte: 
+
+Gasto Turístico, Resultados por comunidades autónomas (Andalucía):
+Gasto de los turistas internacionales según comunidad autónoma de destino principal (Andalucía)
+Observaciones: Gasto total viaje.
+Tipo de dato: Dato base.
+Unidades:  Millones Euros.
+fuente: https://www.ine.es/jaxiT3/Tabla.htm?t=10839&L=0
+
+```{r}
+series=read_excel("Turism.xlsx")
+head(series)
+```
+```{r}
+datas <- as.data.frame(t(series))
+ts <- ts(datas, frequency = 12, start = c(2015,10))
+print(ts)
+```
+
+## Serie temporal del gasto turistico en Andalucia 2015-2020
+
+```{r}
+plot.ts(ts)
+```
+
+
+```{r}
+su  = HoltWinters(ts)
+su
+
+```
+```{r}
+plot(su)
+```
+```{r}
+ts.desc = decompose(ts)
+plot(ts.desc, xlab='Año')
+```
+La descomposición de la serie temporal nos permite visualizaciones por separado para lo observado, la tendencia y estaciones aparentemente claras, además del componente aleatorio; Estos aún son en años.
+```{r}
+plot(ts.desc$trend, xlab='Año', ylab='Millones (Eur)') +
+title("Tendencia Gasto de los turistas internacionales Andalucia")
+```
+<br>
+En el gráfico anterior se puede hacer una primera observación aparentemente estable hasta que en el año 2020 la tendencia decreciente es determinante. A través del gráfico estacional se puede observar estaciones de la serie según los meses en los diferentes años, que por lo cual, permite mayor visualización sobre el comportamiento del gasto turístico en Andalucía.
+```{r}
+ggseasonplot(ts, year.labels=TRUE, year.labels.left=TRUE) +
+  ylab("Mill Eur") +
+  ggtitle("Plot Estacional Gasto de los turistas internacionales Andalucia")+
+  theme(plot.title = element_text(hjust = 0.5))
+```
+Personalmente, elegí ese conjunto de datos por la importancia del sector turismo en Andalucía y porque no es secreto que éste se ha visto afectado en gran medida por la pandemia del covid-19. En el gráfico anterior podemos observar como estaciones con tendencias crecientes en cuando más cerca del verano como Junio a Septiembre (quisiera realizar observaciones sociales sobre lo que representa la Costa del sol para el turismo, pero no quisiera cometer alguna generalización apresurada), los valores más bajos se sitúan al inicio y final del año . Finalmente, el año 2020 muestra un comportamiento contradictorio en cuanto a gráficas que podríamos asociar a los temas de la pandemia y confinamiento, sin embargo en los meses de verano se puede apreciar una creciente nuevamente.
+<br>
+Subseries estacional:
+El siguiente gráfico enfatiza los patrones estacionales es donde los datos de cada temporada se recopilan juntos en mini gráficos de tiempo separados, en los cuales resaltar nuevamente que los meses que corresponden al verano cuentan con un media más elevada y los meses más alejados de verano con un media más baja. Una punto interesante al realizar observaciones a través de la media es que una medida que puede verse fácilmente afectada por datos atípicos (outliers) como lo fue el año 2020 especialmente en el verano.
+```{r}
+ggsubseriesplot(ts) +
+  ylab("Millon (Eur)") +
+  ggtitle("Subseries Estacional: Gasto turistas internacionales Andalucia (Incluyendo 2020)")+
+  theme(plot.title = element_text(hjust = 0.5))
+```
+```{r}
+ts.adj = ts(datas, frequency=12, start=c(2015,10), end=c(2019,12))
+ggsubseriesplot(ts.adj) +
+  ylab("Mill (Eur)") +
+  ggtitle("Subseries Estacional: Gasto turismo internacionales Andalucia (hasta 2019)")+
+  theme(plot.title = element_text(hjust = 0.5))
+```
+Tanto el gráfico como las subseries han cambiado notoriamente y los valores de las medias son más altos.
+### Predicción para instantes futuros del gasto de los turistas internacionales en Andalucía (un año)
+
+#### Método de la media
+El método de la media muestra un valor al rededor de los 900 debido al histórico  de registros .
+```{r}
+mdata.ts <- meanf(ts,12)
+plot(mdata.ts)
+```
+#### Metodo Naive
+Este método muestra el valor que continua el valor observado del 2020 para un instante futuro.
+```{r}
+mdata.ts <- naive(ts, 12)
+plot(mdata.ts)
+
+```
+Seasonal naïve method
+Este método está utilizando la estación del año 2020 y sus los valores son más altos.
+```{r}
+mdata.ts <- snaive(ts, 12)
+plot(mdata.ts)  
+```
+Drift method
+Según este método que establece el cambio medio en los datos históricos, parece que el gasto del turismo internacional para el 2021 será menor aunque el rango de incertidumbre podría contradecirlo.
+```{r}
+mdata.ts <- rwf(ts, 20, drift=TRUE)
+plot(mdata.ts)
+```
+### Predicción para 5 años
+```{r}
+autoplot(ts.n1)+forecast::autolayer(meanf(ts,h=60),PI=FALSE,series="Mean") + forecast::autolayer(naive(ts,h=60),PI=FALSE,series="Naive") +
+  forecast::autolayer(snaive(ts,h=60),PI=FALSE,series="Seasonal  naive") + 
+  forecast::autolayer(rwf(ts,drift=TRUE,h=60),PI=FALSE,series="Drift") +
+  ggtitle("Pronóstico del gasto de turismo internacional en Andalucía en 5 años")+xlab("Año") + ylab("Eur (Mill)") + guides(colour=guide_legend(title="Metodo"))
+```
+
+Método ARIMA
+
+```{r}
+auto.arima(ts, stepwise = FALSE, approximation = FALSE)
+```
+```{r}
+ari<- Arima(ts, order=c(0,1,2), seasonal=list(order=c(0,1,0),period=12))
+forecast1<-forecast(ari, level = c(95), h = 60)
+autoplot(forecast1)
+```
+
+### Conclusión
+Me gustó poder utilizar conjuntos de datos reales, nacionales y del contexto que vivimos actualmente. Aunque el futuro que vivimos es más incierto que lo que hubiese pensado un año atrás, la practica anterior ya nos indicaba que los métodos utilizados para las predicciones hasta ahora no son suficientes para estos tipos de series temporales, el modelo ARIMA finalmente es el que mejor parece ajustarse a los datos que se tenían históricos "normales" con los registrados para el 2020. Un ejercicio muy interesante que se desenvuelve entre el análisis de series temporales y las visualizaciones.
+<br>
+##Bibliografia
+
+https://otexts.com/fpp2/tspatterns.html
+https://rstudio-pubs-static.s3.amazonaws.com/398708_9bff64be426c47b689871d9223d073a3.html
+http://sigma.iimas.unam.mx/jsantibanez/Cursos/Regresion/2018_2/ejemplos/05_cobertura.html
+https://rpubs.com/joser/SeriesTemporalesBasicas
+http://halweb.uc3m.es/esp/Personal/personas/jmmarin/esp/EDescrip/tema7.pdf
+https://bookdown.org/content/2274/series-temporales.html
+https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/ts
