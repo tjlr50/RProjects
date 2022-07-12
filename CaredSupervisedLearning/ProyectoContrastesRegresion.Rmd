@@ -1,0 +1,769 @@
+---
+title: "Proyecto - Aprendizaje supervisado con caret"
+author: "Tomas Lemus"
+date: "20/11/2020"
+output:
+  html_document:
+    toc: yes
+    df_print: paged
+  pdf_document:
+    toc: yes
+    number_sections: yes
+    latex_engine: xelatex
+---
+```{r}
+##install.packages("readr")
+#install.packages("tidyverse")
+#install.packages("webshot")
+```
+
+```{r, include=FALSE}
+library(readr)
+library(tidyverse)
+library(dplyr)
+```
+
+
+```{r}
+```
+
+
+```{r}
+df = read_csv("Alzheimer.csv")
+head(df)
+```
+
+```{r}
+print(dim(df))
+
+```
+Brevemente podemos observar sujetos masculinos y femeninos, desde 55 años de edad con una media de 74, además de variables que representan medidas volumétricas del cerebro (volumen y grosor de regiones anatómicas cerebrales) para personas sanas o con Alzheimer determinadas por la categoria CLASS.Este dataset contiene inicialmente 262 registros con 228 variables entre los cuales seleccionaremos segun sea necesario.
+```{r}
+select(df,CLASS,BRAIN_VOLUME,SEX)
+df=select(df,CLASS,BRAIN_VOLUME,SEX)
+df_H=df%>% filter(CLASS=="HEALTHY",SEX=="MALE")
+df_A=df%>% filter(CLASS=="AD",SEX=="MALE")
+head(df_H)
+```
+CONTRASTE DE HIPÓTESIS: Se supone normalidad y homocedasticidad u homogeneidad de varianzas, podemos realizar nuestro contraste.
+ha: μAD<μH la variable volumen cerebral es significativamente menor en sujetos con Alzheimer que en sujetos sanos.(<)
+ho: μAD >= μH volumen cerebral de AD no es menor que en sanos
+
+
+```{r}
+t.test(df_A$BRAIN_VOLUME,df_H$BRAIN_VOLUME, alternative = "less")
+```
+No se encontró evidencia suficiente para descartar H0, por lo tanto se estima que el volumen cerebral de los sujetos AD no es menos que aquellos sanos de sexo masculino.
+
+```{r}
+boxplot(df_A$BRAIN_VOLUME,df_H$BRAIN_VOLUME)
+```
+Proceso para sexo femenino:
+
+
+
+```{r}
+dFH=df%>% filter(CLASS=="HEALTHY",SEX=="FEMALE")
+dFA=df%>% filter(CLASS=="AD",SEX=="FEMALE")
+```
+
+ha: μAD<μH la variable volumen cerebral es significativamente menor en sujetos con Alzheimer que en sujetos sanos de sexo femenino.(<)
+ho: μAD >= μH volumen cerebral de AD no es menor que en sanos de sexo feminino.
+
+
+```{r}
+t.test(dFA$BRAIN_VOLUME,dFH$BRAIN_VOLUME, alternative = "less")
+
+```
+No se encontró evidencia suficiente para descartar H0, por lo tanto se estima que el volumen cerebral de los sujetos AD no es menos que aquellos sanos de sexo femenino.
+
+
+```{r}
+boxplot(dFA$BRAIN_VOLUME,dFH$BRAIN_VOLUME)
+
+```
+
+Repetir el análisis anterior, pero para comprobar si las variables de volumen de sustancia gris o de sustancia blanca son diferentes entre sujetos sanos y sujetos con AD (realizar un contraste por cada variable).
+
+```{r}
+#masculinos
+df2 = read_csv("Alzheimer.csv")
+dfAM= df2 %>% select(SEX,CLASS,GM_VOLUME,WM_VOLUME) %>% filter(SEX=="MALE",CLASS=="AD")
+dfHM= df2 %>% select(SEX,CLASS,GM_VOLUME,WM_VOLUME) %>% filter(SEX=="MALE",CLASS=="HEALTHY")
+head(dfAM)
+```
+
+CONTRASTE DE HIPÓTESIS: 
+
+ha: μADG!=μADW  las variables de volumen de sustancia gris o de sustancia blanca son diferentes entre sujetos con AD 
+ho: μADG = μADW las variables de volumen de sustancia gris o de sustancia blanca no son diferentes entre sujetos  con AD 
+
+
+```{r}
+t.test(dfAM$GM_VOLUME,dfAM$WM_VOLUME, alternative = "two.sided")
+```
+Valor p menor que 0.05 por lo tanto hay evidencia suficiente para rechazar h0, y se estima diferencia entre las sustancias blancas y gris para sujetos con AD masculinos.
+
+```{r}
+head(dfHM)
+```
+
+
+CONTRASTE DE HIPÓTESIS: 
+
+ha: μHG!=μHW  las variables de volumen de sustancia gris o de sustancia blanca son diferentes entre sujetos sanos.
+ho: μHG = μHW las variables de volumen de sustancia gris o de sustancia blanca no son diferentes entre sujetos sanos.
+
+
+```{r}
+
+t.test(dfHM$GM_VOLUME,dfHM$WM_VOLUME, alternative = "two.sided")
+```
+Valor p menor que 0.05 por lo tanto hay evidencia suficiente para rechazar h0, y se estima diferencia entre las sustancias blancas y gris para sujetos sanos de sexo masculino.
+
+## Analisis para sexo femenino
+
+```{r}
+
+dfAF= df2 %>% select(SEX,CLASS,GM_VOLUME,WM_VOLUME) %>% filter(SEX=="FEMALE",CLASS=="AD")
+dfHf= df2 %>% select(SEX,CLASS,GM_VOLUME,WM_VOLUME) %>% filter(SEX=="FEMALE",CLASS=="HEALTHY")
+head(dfAF)
+```
+
+
+CONTRASTE DE HIPÓTESIS: 
+
+ha: μADG!=μADW  las variables de volumen de sustancia gris o de sustancia blanca son diferentes entre sujetos con AD de sexo femenino.
+ho: μADG = μADW las variables de volumen de sustancia gris o de sustancia blanca no son diferentes entre sujetos  con AD de sexo femenino.
+
+
+```{r}
+t.test(dfAF$GM_VOLUME,dfAF$WM_VOLUME, alternative = "two.sided")
+```
+Valor p menor que 0.05 por lo tanto hay evidencia suficiente para rechazar h0, y se estima diferencia entre las sustancias blancas y gris para sujetos con AD de sexo femenino.
+```{r}
+head(dfHf)
+```
+
+CONTRASTE DE HIPÓTESIS: 
+
+ha: μHG!=μHW las variables de volumen de sustancia gris o de sustancia blanca son diferentes entre sujetos sanos de sexo femenino.
+ho: μHG = μHW las variables de volumen de sustancia gris o de sustancia blanca no son diferentes entre sujetos sanos de sexo femenino.
+
+
+```{r}
+
+t.test(dfHf$GM_VOLUME,dfHf$WM_VOLUME, alternative = "two.sided")
+```
+Valor p menor que 0.05 por lo tanto hay evidencia suficiente para rechazar h0, y se estima diferencia entre las sustancias blancas y gris para sujetos sanos de sexo femenino.
+
+
+¿Es diferente la incidencia de la enfermedad en pacientes de distinto sexo?
+
+¿Son independientes las variables SEX y CLASS? Usa un test χ2 para comprobar la independencia y la correlación entre ambas.
+
+H0: Son independientes las variables SEX y CLASS.
+H1: No son independientes las variables SEX y CLASS.
+
+```{r}
+tab <- table(df$SEX, df$CLASS)
+tab
+```
+```{r}
+chisq.test(tab)
+```
+Valor p mayor que 0.05 por lo tanto no hay evidencia suficiente para rechazar h0, y se estima independencia entre las variables SEX y CLASS.
+
+El índice χ2 toma el valor 0 cuando dos variables son independientes.
+
+# REGRESION
+
+Nos planteamos establecer un patrón de atrofia anual (es decir, dependiendo de la edad) en el cerebro. ¿Cómo varía el volumen del cerebro con la edad?
+
+Queremos establecer un modelo de regresión que use como predictores las variables sexo y edad para estimar el valor del volumen cerebral (variable BRAIN_VOLUME).
+
+
+### modelo de regresión simple y polinomico.
+Hipotesis para modelos de regresión
+Ho: La función corresponde el modelo
+H1: La función no corresponde al modelo
+Hipotesis para anova
+Ho: El modelo más complejo no mejora al más simple
+H1: El modelo más complejo mejora al más simple
+
+```{r}
+dfR= df2 %>% select(BRAIN_VOLUME,AGE,SEX) 
+modelo_1 <- lm(BRAIN_VOLUME ~ AGE, data = dfR)
+modelo_2 <- lm(BRAIN_VOLUME ~ poly(AGE, 2), data = dfR)
+modelo_3 <- lm(BRAIN_VOLUME ~ poly(AGE, 3), data = dfR)
+modelo_4 <- lm(BRAIN_VOLUME ~ poly(AGE, 4), data = dfR)
+modelo_5 <- lm(BRAIN_VOLUME ~ poly(AGE, 5), data = dfR)
+
+anova(modelo_1, modelo_2, modelo_3, modelo_4, modelo_5)
+```
+
+
+```{r}
+f1= lm(dfR$BRAIN_VOLUME ~ dfR$AGE + dfR$SEX)
+f2= lm(dfR$BRAIN_VOLUME ~ dfR$AGE + dfR$SEX + I(dfR$AGE^2))
+f3= lm(dfR$BRAIN_VOLUME ~ dfR$AGE + dfR$SEX + I(dfR$AGE^2) + I(dfR$AGE^3))
+f4= lm(dfR$BRAIN_VOLUME ~ dfR$AGE + dfR$SEX + I(dfR$AGE^2) + I(dfR$AGE^3) + I(dfR$AGE^4))
+f5= lm(dfR$BRAIN_VOLUME ~ dfR$AGE + dfR$SEX + I(dfR$AGE^2) + I(dfR$AGE^3) + I(dfR$AGE^4) + I(dfR$AGE^5))
+anova(f1,f2,f3,f4,f5)
+```
+ #degree 2 is the better
+```{r}
+summary(f2) 
+```
+Cada una de las pendientes de un modelo de regresión lineal múltiple se define del siguiente modo: Si el resto de variables se mantienen constantes, por cada unidad que aumenta el predictor en cuestión, la variable Y varía en promedio tantas unidades como indica la pendiente. En el caso del predictor AGE, si el resto de variables no varían, por cada unidad de AGE que aumenta el volumen cerebral se aumenta en promedio 23.70259 unidades. Las variables son significativas (al menos ‘*’ 0.05),
+El coeficiente de determinacion R^2(0.4982 o 49.82%): es el porcentaje de la variación en la variable de respuesta que es explicado por un modelo lineal. El R-cuadrado siempre está entre 0 y 100%:
+
+  0% indica que el modelo no explica ninguna porción de la variabilidad de los datos de respuesta en torno a su media.
+  100% indica que el modelo explica toda la variabilidad de los datos de respuesta en torno a su media.
+
+```{r}
+plot.new()
+plot(fitted(f2), residuals(f2), xlab = "Approached values",  ylab = "Residuals")
+  abline(h=0, lty=2)
+    lines(smooth.spline(fitted(f2), residuals(f2)))
+```
+
+```{r}
+plot(f2$residuals)
+summary(f2$residuals)
+boxplot(f2$residuals)
+```
+
+----
+#Caret
+
+Caret actúa como interfaz única para otros muchos métodos. En total, hace de interfaz con 136 métodos de regresión distintos.
+
+```{r}
+#install.packages("caret")
+library(caret)
+modelLookup()
+```
+
+```{r}
+trainIndex <- createDataPartition(dfR$BRAIN_VOLUME, 
+                                  p = .8, 
+                                  list = FALSE, 
+                                  times = 1)
+
+b_train <- dfR[trainIndex, ]
+b_test  <- dfR[-trainIndex, ]
+
+```
+
+```{r}
+fitControl <- trainControl(method = "repeatedcv",
+                           number = 10,
+                           repeats = 1)
+
+# Y esta función entrena el método
+caret_lm_model <- train(BRAIN_VOLUME ~ ., 
+                        data = b_train, 
+                        method = "lm",
+                        trControl = fitControl)
+```
+```{r}
+caret_lm_model
+```
+Podemos observar que se ha conseguido un MSE = 11224.32.
+
+Comparación entre modelos.
+
+```{r, include=FALSE}
+# Métodos que queremos ejecutar
+methods <- c("knn", "gbm", "lm")
+
+# Los ejecutamos usando lapply
+methods %>% 
+  lapply(function(x) {
+    
+    train(BRAIN_VOLUME ~ ., 
+          data = b_train,
+          method = x,
+          trControl = fitControl,
+          verbose = FALSE)
+    
+  }) -> caret_results
+
+# A cada elemento del resultado le ponemos nombre
+names(caret_results) <- methods
+```
+
+Con esto, somos capaces de seleccionar el mejor de los métodos (el que minimice el error cometido):
+```{r}
+#install.packages("kableExtra", dependencies = TRUE)
+
+# Recorremos todos los métodos y tomamos el RMSE de cada uno
+best_rmse <- sapply(caret_results, function(i) min(i$results$RMSE, na.rm = TRUE))
+
+# El mejor será el que tenga un RMSE más bajo
+best_regressor <- names(best_rmse)[which.min(best_rmse)]
+
+# Los mostramos en forma de tabla
+w <- best_rmse %>% as.data.frame()
+
+colnames(w) <- "RMSE"
+
+w %>% 
+  knitr::kable(format = "html") %>% kableExtra::kable_styling(font_size = 14)
+```
+
+```{r}
+cat("El metodo que minimiza la medida del error:",best_regressor)
+```
+
+Visualización de resultados.
+
+```{r}
+plot(caret_results$gbm)
+
+```
+<br>
+
+Vamos a repetir los 2 pasos previos para encontrar modelos que estimen la variable GM_VOLUME (volumen de sustancia gris) y modelos para estimar WM_VOLUME (volumen de sustancia blanca) a partir de la edad y del sexo.
+
+
+```{r}
+dfRG= df2 %>% select(SEX,AGE,GM_VOLUME)
+
+dfRW= df2 %>% select(SEX,AGE,WM_VOLUME)
+```
+
+Modelo de regresion simple y polinomico (volumen de sustancia gris).
+```{r}
+modelo_1G <- lm(GM_VOLUME ~ AGE, data = dfRG)
+modelo_2G <- lm(GM_VOLUME ~ poly(AGE, 2), data = dfRG)
+modelo_3G <- lm(GM_VOLUME ~ poly(AGE, 3), data = dfRG)
+modelo_4G <- lm(GM_VOLUME ~ poly(AGE, 4), data = dfRG)
+modelo_5G <- lm(GM_VOLUME ~ poly(AGE, 5), data = dfRG)
+
+anova(modelo_1G, modelo_2G, modelo_3G, modelo_4G, modelo_5G)
+```
+
+
+```{r}
+f1G= lm(dfRG$GM_VOLUME ~ dfRG$AGE + dfRG$SEX)
+f2G= lm(dfRG$GM_VOLUME ~ dfRG$AGE + dfRG$SEX + I(dfRG$AGE^2))
+f3G= lm(dfRG$GM_VOLUME ~ dfRG$AGE + dfRG$SEX + I(dfRG$AGE^2) + I(dfRG$AGE^3))
+f4G= lm(dfRG$GM_VOLUME ~ dfRG$AGE + dfRG$SEX + I(dfRG$AGE^2) + I(dfRG$AGE^3) + I(dfRG$AGE^4))
+f5G= lm(dfRG$GM_VOLUME ~ dfRG$AGE + dfRG$SEX + I(dfRG$AGE^2) + I(dfRG$AGE^3) + I(dfRG$AGE^4) + I(dfRG$AGE^5))
+anova(f1G,f2G,f3G,f4G,f5G)
+```
+ #degree 2 is the better
+```{r}
+summary(f2G) 
+```
+p-value: < 2.2e-16 por lo tanto se acepta el modelo.
+En el caso del predictor AGE, si el resto de variables no varían, por cada unidad de AGE que aumenta el volumen cerebral se aumenta en promedio 13.88024 unidades. Las variables son significativas (al menos ‘*’ 0.05),
+Coeficiente de determinacion R^2(0.2907 o 29%): es el porcentaje de la variación en la variable de respuesta que es explicado por un modelo lineal.
+
+```{r}
+plot.new()
+plot(fitted(f2G), residuals(f2G), xlab = "Approached values",  ylab = "Residuals")
+  abline(h=0, lty=2)
+    lines(smooth.spline(fitted(f2G), residuals(f2G)))
+```
+
+```{r}
+plot(f2G$residuals)
+summary(f2G$residuals)
+boxplot(f2G$residuals)
+```
+CARET para modelos del volumen de sustancia gris.
+
+
+```{r}
+trainIndex <- createDataPartition(dfRG$GM_VOLUME, 
+                                  p = .8, 
+                                  list = FALSE, 
+                                  times = 1)
+
+b_train <- dfRG[trainIndex, ]
+b_test  <- dfRG[-trainIndex, ]
+
+```
+
+```{r}
+fitControl <- trainControl(method = "repeatedcv",
+                           number = 10,
+                           repeats = 1)
+
+# Y esta función entrena el método
+caret_lm_model <- train(GM_VOLUME ~ ., 
+                        data = b_train, 
+                        method = "lm",
+                        trControl = fitControl)
+```
+```{r}
+caret_lm_model
+```
+Podemos observar que se ha conseguido un MSE = 3155.691
+
+Comparación entre modelos.
+
+```{r, include=FALSE }
+# Métodos que queremos ejecutar
+methods <- c("knn", "gbm", "lm")
+
+# Los ejecutamos usando lapply
+methods %>% 
+  lapply(function(x) {
+    
+    train(GM_VOLUME ~ ., 
+          data = b_train,
+          method = x,
+          trControl = fitControl,
+          verbose = FALSE)
+    
+  }) -> caret_results
+
+# A cada elemento del resultado le ponemos nombre
+names(caret_results) <- methods
+```
+
+Con esto, somos capaces de seleccionar el mejor de los métodos (el que minimice el error cometido):
+```{r}
+#install.packages("kableExtra", dependencies = TRUE)
+
+# Recorremos todos los métodos y tomamos el RMSE de cada uno
+best_rmse <- sapply(caret_results, function(i) min(i$results$RMSE, na.rm = TRUE))
+
+# El mejor será el que tenga un RMSE más bajo
+best_regressor <- names(best_rmse)[which.min(best_rmse)]
+
+# Los mostramos en forma de tabla
+w <- best_rmse %>% as.data.frame()
+
+colnames(w) <- "RMSE"
+
+w %>% 
+  knitr::kable(format = "html") %>% kableExtra::kable_styling(font_size = 14)
+```
+
+```{r}
+cat("El metodo que minimiza la medida del error:",best_regressor)
+```
+
+Visualización de resultados.
+
+```{r}
+plot(caret_results$gbm)
+
+```
+<br>
+<br>
+
+modelo de regresion simple y polinomico para  modelos con volumen de sustancia blanca.
+```{r}
+modelo_1W <- lm(WM_VOLUME ~ AGE, data = dfRW)
+modelo_2W <- lm(WM_VOLUME ~ poly(AGE, 2), data = dfRW)
+modelo_3W <- lm(WM_VOLUME ~ poly(AGE, 3), data = dfRW)
+modelo_4W <- lm(WM_VOLUME ~ poly(AGE, 4), data = dfRW)
+modelo_5W <- lm(WM_VOLUME ~ poly(AGE, 5), data = dfRW)
+
+anova(modelo_1W, modelo_2W, modelo_3W, modelo_4W, modelo_5W)
+```
+
+
+```{r}
+f1W= lm(dfRW$WM_VOLUME ~ dfRW$AGE + dfRW$SEX)
+f2W= lm(dfRW$WM_VOLUME ~ dfRW$AGE + dfRW$SEX + I(dfRW$AGE^2))
+f3W= lm(dfRW$WM_VOLUME ~ dfRW$AGE + dfRW$SEX + I(dfRW$AGE^2) + I(dfRW$AGE^3))
+f4W= lm(dfRW$WM_VOLUME ~ dfRW$AGE + dfRW$SEX + I(dfRW$AGE^2) + I(dfRW$AGE^3) + I(dfRW$AGE^4))
+f5W= lm(dfRW$WM_VOLUME ~ dfRW$AGE + dfRW$SEX + I(dfRW$AGE^2) + I(dfRW$AGE^3) + I(dfRW$AGE^4) + I(dfRW$AGE^5))
+anova(f1W,f2W,f3W,f4W,f5W)
+```
+NINGUN MODELO CON P VALUE < 0.05, por lo que tomamos el modelo 1: dfRW$WM_VOLUME ~ dfRW$AGE + dfRW$SEX
+```{r}
+summary(f1W) 
+```
+p-value: < 2.2e-16 por lo tanto se acepta el modelo.
+En el caso del predictor AGE, si el resto de variables no varían, por cada unidad de AGE que aumenta el volumen cerebral se aumenta en promedio 0.9657 unidades. Las variables son significativas (al menos ‘*’ 0.05),
+Coeficiente de determinacion R^2(0.4179 o 42%): es el porcentaje de la variación en la variable de respuesta que es explicado por un modelo lineal.
+
+```{r}
+plot.new()
+plot(fitted(f1W), residuals(f1W), xlab = "Approached values",  ylab = "Residuals")
+  abline(h=0, lty=2)
+    lines(smooth.spline(fitted(f1W), residuals(f1W)))
+```
+
+```{r}
+plot(f1W$residuals)
+summary(f1W$residuals)
+boxplot(f1W$residuals)
+```
+CARET para modelos del volumen de sustancia blanca.
+
+
+```{r}
+trainIndex <- createDataPartition(dfRW$WM_VOLUME, 
+                                  p = .8, 
+                                  list = FALSE, 
+                                  times = 1)
+
+b_train <- dfRW[trainIndex, ]
+b_test  <- dfRW[-trainIndex, ]
+
+```
+
+```{r}
+fitControl <- trainControl(method = "repeatedcv",
+                           number = 10,
+                           repeats = 1)
+
+# Y esta función entrena el método
+caret_lm_model <- train(WM_VOLUME ~ ., 
+                        data = b_train, 
+                        method = "lm",
+                        trControl = fitControl)
+```
+```{r}
+caret_lm_model
+```
+Podemos observar que se ha conseguido un MSE = 1825.792.
+
+Comparación entre modelos.
+
+```{r}
+# Métodos que queremos ejecutar
+methods <- c("knn", "gbm", "lm")
+
+# Los ejecutamos usando lapply
+methods %>% 
+  lapply(function(x) {
+    
+    train(WM_VOLUME ~ ., 
+          data = b_train,
+          method = x,
+          trControl = fitControl,
+          verbose = FALSE)
+    
+  }) -> caret_results
+
+# A cada elemento del resultado le ponemos nombre
+names(caret_results) <- methods
+```
+
+Con esto, somos capaces de seleccionar el mejor de los métodos (el que minimice el error cometido):
+```{r}
+#install.packages("kableExtra", dependencies = TRUE)
+
+# Recorremos todos los métodos y tomamos el RMSE de cada uno
+best_rmse <- sapply(caret_results, function(i) min(i$results$RMSE, na.rm = TRUE))
+
+# El mejor será el que tenga un RMSE más bajo
+best_regressor <- names(best_rmse)[which.min(best_rmse)]
+
+# Los mostramos en forma de tabla
+w <- best_rmse %>% as.data.frame()
+
+colnames(w) <- "RMSE"
+
+w %>% 
+  knitr::kable(format = "html") %>% kableExtra::kable_styling(font_size = 14)
+```
+
+```{r}
+cat("El metodo que minimiza la medida del error:",best_regressor)
+```
+
+Visualización de resultados.
+
+```{r}
+plot(caret_results$gbm)
+
+```
+
+<br>
+Usando como predictores las variables de volumen cebrebral de sustancia gris y blanca, así como el sexo, estimar la edad del individuo en cuestión utilizando caret.
+```{r}
+dfRA= df2 %>% select(WM_VOLUME, GM_VOLUME,AGE,SEX)
+
+trainIndex <- createDataPartition(dfRA$AGE, 
+                                  p = .8, 
+                                  list = FALSE, 
+                                  times = 1)
+
+b_train <- dfRA[trainIndex, ]
+b_test  <- dfRA[-trainIndex, ]
+
+```
+
+
+Comparación entre modelos.
+
+```{r}
+# Métodos que queremos ejecutar
+methods <- c("knn", "gbm", "lm")
+
+# Los ejecutamos usando lapply
+methods %>% 
+  lapply(function(x) {
+    
+    train(AGE ~ ., 
+          data = b_train,
+          method = x,
+          trControl = fitControl,
+          verbose = FALSE)
+    
+  }) -> caret_results
+
+# A cada elemento del resultado le ponemos nombre
+names(caret_results) <- methods
+```
+
+Con esto, somos capaces de seleccionar el mejor de los métodos (el que minimice el error cometido):
+```{r}
+#install.packages("kableExtra", dependencies = TRUE)
+
+# Recorremos todos los métodos y tomamos el RMSE de cada uno
+best_rmse <- sapply(caret_results, function(i) min(i$results$RMSE, na.rm = TRUE))
+
+# El mejor será el que tenga un RMSE más bajo
+best_regressor <- names(best_rmse)[which.min(best_rmse)]
+
+# Los mostramos en forma de tabla
+w <- best_rmse %>% as.data.frame()
+
+colnames(w) <- "RMSE"
+
+w %>% 
+  knitr::kable(format = "html") %>% kableExtra::kable_styling(font_size = 14)
+```
+
+```{r}
+cat("El metodo que minimiza la medida del error:",best_regressor)
+```
+
+```{r}
+fitControl <- trainControl(method = "repeatedcv",
+                           number = 10,
+                           repeats = 1)
+
+# Y esta función entrena el método
+caret_lm_model <- train(AGE ~ ., 
+                        data = b_train, 
+                        method = "lm",
+                        trControl = fitControl)
+```
+Visualización de resultados.
+
+```{r}
+caret_results$lm
+
+```
+
+<br>
+
+#Regresión logística y clasificación
+Con la regresión logística podemos asumir valores para variables binarias.
+
+Queremos poder decidir, a partir de los datos de volumetría cerebral contemplados, si un nuevo sujeto puede padecer la enfermedad de Alzheimer.
+
+Para ello, construiremos modelos de regresión logística y de clasificación para resolver ese problema.
+
+Debemos dividir el dataset en un conjunto de entrenamiento con el 80% de los datos, seleccionado aleatoriamente, y un 20% restante para validar los modelos.
+
+
+```{r}
+
+dfRL= df2 %>% select(BRAIN_VOLUME,WM_VOLUME, GM_VOLUME,AGE,SEX, CLASS)
+set.seed(123)
+
+dfRL$SEX = as.factor(dfRL$SEX)
+dfRL$CLASS = as.factor(dfRL$CLASS)
+trainIndex <- createDataPartition(dfRL$CLASS, 
+                                  p = .8, 
+                                  list = FALSE, 
+                                  times = 1)
+
+b_train <- dfRL[trainIndex, ]
+b_test  <- dfRL[-trainIndex, ]
+
+```
+```{r}
+gm <- glm(formula = CLASS ~ BRAIN_VOLUME  + WM_VOLUME + GM_VOLUME + AGE + SEX, data = b_train, family = binomial)
+summary(gm)
+```
+EL modelo nos indica que los predictores volumen cerebral, sustancia blanca y gris son signiicativos, y que los predictores AGE y SEX pueden ser 0 por lo que serán omitidos para evitar ruido y mermar complejidad al modelo.
+```{r}
+gm <- glm(formula = CLASS ~ BRAIN_VOLUME  + WM_VOLUME + GM_VOLUME, data = b_train, family = binomial)
+summary(gm)
+```
+
+probar precison sobre el conjunto de validación
+
+```{r}
+logit <- predict(gm,b_test)
+p <- 1 / (1 + exp(-logit))
+p
+```
+
+Crear un modelo de regresión logística adecuado (especialmente, en el que los predictores sean significativos) para la variable CLASS. ¿Qué precisión tiene ese modelo si lo ejecutamos (usando predict()) sobre el conjunto de validación?
+
+Asimismo, se desea construir una serie de modelos de clasificación binaria con caret que, utilizando todos los parámetros disponibles, estime la clase (CLASS) a la que pertenece cada individuo. Para ello:
+
+```{r}
+folds <- createFolds(dfRL$CLASS, k = 5)
+# Validación cruzada
+set.seed(123)
+fitControl <- trainControl(method = "repeatedcv",
+                           number = 5,
+                           repeats = 1)
+```
+```{r}
+methods <- c("svmLinear", "rpart", "regLogistic", "C5.0")
+
+# Se ejecutan
+methods %>% 
+  lapply(function(x) {
+    
+    caret::train(CLASS ~ ., 
+                 data = b_train,
+                 method = x,
+                 trControl = fitControl)
+    
+  }) -> caret_class_results
+
+names(caret_class_results) <- methods
+```
+
+```{r}
+# Recorremos todos los resultados, almacenando la métrica
+# accuracy (la precisión)
+best_acc <- sapply(caret_class_results, function(i) max(i$results$Accuracy, na.rm = TRUE))
+
+best_classifier <- names(best_acc)[which.max(best_acc)]
+
+w <- best_acc %>% as.data.frame()
+
+colnames(w) <- "Accuracy"
+
+w %>% 
+  knitr::kable(format = "html") %>% 
+  kableExtra::kable_styling(font_size = 14)
+```
+En este caso, el mejor clasificador ha sido regLogistic con una precisión de 89%.
+
+```{r}
+predicted_class <- caret_class_results[[best_classifier]] %>%  
+  predict(b_test)
+
+confusionMatrix(predicted_class, b_test$CLASS)
+```
+```{r}
+plot(caret_class_results[[best_classifier]])
+```
+
+<br>
+
+##Bibliografias 
+
+https://blog.minitab.com/es/analisis-de-regresion-como-puedo-interpretar-el-r-cuadrado-y-evaluar-la-bondad-de-ajuste
+

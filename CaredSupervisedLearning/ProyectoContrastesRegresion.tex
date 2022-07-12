@@ -1,0 +1,3562 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Proyecto - Aprendizaje supervisado con caret},
+  pdfauthor={Tomas Lemus},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{Proyecto - Aprendizaje supervisado con caret}
+\author{Tomas Lemus}
+\date{20/11/2020}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#install.packages("readr")}
+\CommentTok{\#install.packages("tidyverse")}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df }\OtherTok{=} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"Alzheimer.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## -- Column specification --------------------------------------------------------
+## cols(
+##   .default = col_double(),
+##   SEX = col_character(),
+##   CLASS = col_character()
+## )
+## i Use `spec()` for the full column specifications.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 228
+##     AGE SEX   BRAIN_VOLUME GM_VOLUME WM_VOLUME CSF_VOLUME GM_BRAIN_QUOTIE~
+##   <dbl> <chr>        <dbl>     <dbl>     <dbl>      <dbl>            <dbl>
+## 1  68   MALE         1411.      599.      433.       379.            0.425
+## 2  82.9 FEMA~        1368.      552.      446.       370.            0.403
+## 3  72.8 FEMA~        1154.      444.      393.       317.            0.385
+## 4  73   FEMA~        1547.      665.      492.       390.            0.430
+## 5  71.1 FEMA~        1326.      559.      433.       334.            0.422
+## 6  78.1 MALE         1400.      526.      441.       433.            0.376
+## # ... with 221 more variables: WM_BRAIN_QUOTIENT <dbl>,
+## #   CSF_BRAIN_QUOTIENT <dbl>, GM_WM_QUOTIENT <dbl>, PRECENTRAL_L_VOLUME <dbl>,
+## #   PRECENTRAL_R_VOLUME <dbl>, FRONTAL_SUP_L_VOLUME <dbl>,
+## #   FRONTAL_SUP_R_VOLUME <dbl>, FRONTAL_SUP_ORB_L_VOLUME <dbl>,
+## #   FRONTAL_SUP_ORB_R_VOLUME <dbl>, FRONTAL_MID_L_VOLUME <dbl>,
+## #   FRONTAL_MID_R_VOLUME <dbl>, FRONTAL_MID_ORB_L_VOLUME <dbl>,
+## #   FRONTAL_MID_ORB_R_VOLUME <dbl>, FRONTAL_INF_OPER_L_VOLUME <dbl>,
+## #   FRONTAL_INF_OPER_R_VOLUME <dbl>, FRONTAL_INF_TRI_L_VOLUME <dbl>,
+## #   FRONTAL_INF_TRI_R_VOLUME <dbl>, FRONTAL_INF_ORB_L_VOLUME <dbl>,
+## #   FRONTAL_INF_ORB_R_VOLUME <dbl>, ROLANDIC_OPER_L_VOLUME <dbl>,
+## #   ROLANDIC_OPER_R_VOLUME <dbl>, SUPP_MOTOR_AREA_L_VOLUME <dbl>,
+## #   SUPP_MOTOR_AREA_R_VOLUME <dbl>, OLFACTORY_L_VOLUME <dbl>,
+## #   OLFACTORY_R_VOLUME <dbl>, FRONTAL_SUP_MEDIAL_L_VOLUME <dbl>,
+## #   FRONTAL_SUP_MEDIAL_R_VOLUME <dbl>, RECTUS_L_VOLUME <dbl>,
+## #   RECTUS_R_VOLUME <dbl>, INSULA_L_VOLUME <dbl>, INSULA_R_VOLUME <dbl>,
+## #   CINGULUM_ANT_L_VOLUME <dbl>, CINGULUM_ANT_R_VOLUME <dbl>,
+## #   CINGULUM_MID_L_VOLUME <dbl>, CINGULUM_MID_R_VOLUME <dbl>,
+## #   CINGULUM_POST_L_VOLUME <dbl>, CINGULUM_POST_R_VOLUME <dbl>,
+## #   HIPPOCAMPUS_L_VOLUME <dbl>, HIPPOCAMPUS_R_VOLUME <dbl>,
+## #   PARAHIPPOCAMPAL_L_VOLUME <dbl>, PARAHIPPOCAMPAL_R_VOLUME <dbl>,
+## #   AMYGDALA_L_VOLUME <dbl>, AMYGDALA_R_VOLUME <dbl>, CALCARINE_L_VOLUME <dbl>,
+## #   CALCARINE_R_VOLUME <dbl>, CUNEUS_L_VOLUME <dbl>, CUNEUS_R_VOLUME <dbl>,
+## #   LINGUAL_L_VOLUME <dbl>, LINGUAL_R_VOLUME <dbl>,
+## #   OCCIPITAL_SUP_L_VOLUME <dbl>, OCCIPITAL_SUP_R_VOLUME <dbl>,
+## #   OCCIPITAL_MID_L_VOLUME <dbl>, OCCIPITAL_MID_R_VOLUME <dbl>,
+## #   OCCIPITAL_INF_L_VOLUME <dbl>, OCCIPITAL_INF_R_VOLUME <dbl>,
+## #   FUSIFORM_L_VOLUME <dbl>, FUSIFORM_R_VOLUME <dbl>,
+## #   POSTCENTRAL_L_VOLUME <dbl>, POSTCENTRAL_R_VOLUME <dbl>,
+## #   PARIETAL_SUP_L_VOLUME <dbl>, PARIETAL_SUP_R_VOLUME <dbl>,
+## #   PARIETAL_INF_L_VOLUME <dbl>, PARIETAL_INF_R_VOLUME <dbl>,
+## #   SUPRAMARGINAL_L_VOLUME <dbl>, SUPRAMARGINAL_R_VOLUME <dbl>,
+## #   ANGULAR_L_VOLUME <dbl>, ANGULAR_R_VOLUME <dbl>, PRECUNEUS_L_VOLUME <dbl>,
+## #   PRECUNEUS_R_VOLUME <dbl>, PARACENTRAL_LOBULE_L_VOLUME <dbl>,
+## #   PARACENTRAL_LOBULE_R_VOLUME <dbl>, CAUDATE_L_VOLUME <dbl>,
+## #   CAUDATE_R_VOLUME <dbl>, PUTAMEN_L_VOLUME <dbl>, PUTAMEN_R_VOLUME <dbl>,
+## #   PALLIDUM_L_VOLUME <dbl>, PALLIDUM_R_VOLUME <dbl>, THALAMUS_L_VOLUME <dbl>,
+## #   THALAMUS_R_VOLUME <dbl>, HESCHL_L_VOLUME <dbl>, HESCHL_R_VOLUME <dbl>,
+## #   TEMPORAL_SUP_L_VOLUME <dbl>, TEMPORAL_SUP_R_VOLUME <dbl>,
+## #   TEMPORAL_POLE_SUP_L_VOLUME <dbl>, TEMPORAL_POLE_SUP_R_VOLUME <dbl>,
+## #   TEMPORAL_MID_L_VOLUME <dbl>, TEMPORAL_MID_R_VOLUME <dbl>,
+## #   TEMPORAL_POLE_MID_L_VOLUME <dbl>, TEMPORAL_POLE_MID_R_VOLUME <dbl>,
+## #   TEMPORAL_INF_L_VOLUME <dbl>, TEMPORAL_INF_R_VOLUME <dbl>,
+## #   CEREBELUM_CRUS1_L_VOLUME <dbl>, CEREBELUM_CRUS1_R_VOLUME <dbl>,
+## #   CEREBELUM_CRUS2_L_VOLUME <dbl>, CEREBELUM_CRUS2_R_VOLUME <dbl>,
+## #   CEREBELUM_3_L_VOLUME <dbl>, CEREBELUM_3_R_VOLUME <dbl>,
+## #   CEREBELUM_4_5_L_VOLUME <dbl>, CEREBELUM_4_5_R_VOLUME <dbl>,
+## #   CEREBELUM_6_L_VOLUME <dbl>, ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{dim}\NormalTok{(df))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 262 228
+\end{verbatim}
+
+Brevemente podemos observar sujetos masculinos y femeninos, desde 55
+años de edad con una media de 74, además de variables que representan
+medidas volumétricas del cerebro (volumen y grosor de regiones
+anatómicas cerebrales) para personas sanas o con Alzheimer determinadas
+por la categoria CLASS.Este dataset contiene inicialmente 262 registros
+con 228 variables entre los cuales seleccionaremos segun sea necesario.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{select}\NormalTok{(df,CLASS,BRAIN\_VOLUME,SEX)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 262 x 3
+##    CLASS BRAIN_VOLUME SEX   
+##    <chr>        <dbl> <chr> 
+##  1 AD           1411. MALE  
+##  2 AD           1368. FEMALE
+##  3 AD           1154. FEMALE
+##  4 AD           1547. FEMALE
+##  5 AD           1326. FEMALE
+##  6 AD           1400. MALE  
+##  7 AD           1241. FEMALE
+##  8 AD           1514. FEMALE
+##  9 AD           1238. FEMALE
+## 10 AD           1513. MALE  
+## # ... with 252 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df}\OtherTok{=}\FunctionTok{select}\NormalTok{(df,CLASS,BRAIN\_VOLUME,SEX)}
+\NormalTok{df\_H}\OtherTok{=}\NormalTok{df}\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(CLASS}\SpecialCharTok{==}\StringTok{"HEALTHY"}\NormalTok{,SEX}\SpecialCharTok{==}\StringTok{"MALE"}\NormalTok{)}
+\NormalTok{df\_A}\OtherTok{=}\NormalTok{df}\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(CLASS}\SpecialCharTok{==}\StringTok{"AD"}\NormalTok{,SEX}\SpecialCharTok{==}\StringTok{"MALE"}\NormalTok{)}
+\FunctionTok{head}\NormalTok{(df\_H)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 3
+##   CLASS   BRAIN_VOLUME SEX  
+##   <chr>          <dbl> <chr>
+## 1 HEALTHY        1608. MALE 
+## 2 HEALTHY        1349. MALE 
+## 3 HEALTHY        1391. MALE 
+## 4 HEALTHY        1519. MALE 
+## 5 HEALTHY        1602. MALE 
+## 6 HEALTHY        1457. MALE
+\end{verbatim}
+
+CONTRASTE DE HIPÓTESIS: Se supone normalidad y homocedasticidad u
+homogeneidad de varianzas, podemos realizar nuestro contraste. ha:
+μAD\textless μH la variable volumen cerebral es significativamente menor
+en sujetos con Alzheimer que en sujetos sanos.(\textless) ho: μAD
+\textgreater= μH volumen cerebral de AD no es menor que en sanos
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{t.test}\NormalTok{(df\_A}\SpecialCharTok{$}\NormalTok{BRAIN\_VOLUME,df\_H}\SpecialCharTok{$}\NormalTok{BRAIN\_VOLUME, }\AttributeTok{alternative =} \StringTok{"less"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Welch Two Sample t-test
+## 
+## data:  df_A$BRAIN_VOLUME and df_H$BRAIN_VOLUME
+## t = 0.023782, df = 14.19, p-value = 0.5093
+## alternative hypothesis: true difference in means is less than 0
+## 95 percent confidence interval:
+##      -Inf 74.43254
+## sample estimates:
+## mean of x mean of y 
+##  1542.332  1541.340
+\end{verbatim}
+
+No se encontró evidencia suficiente para descartar H0, por lo tanto se
+estima que el volumen cerebral de los sujetos AD no es menos que
+aquellos sanos de sexo masculino.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{boxplot}\NormalTok{(df\_A}\SpecialCharTok{$}\NormalTok{BRAIN\_VOLUME,df\_H}\SpecialCharTok{$}\NormalTok{BRAIN\_VOLUME)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ProyectoContrastesRegresion_files/figure-latex/unnamed-chunk-8-1.pdf}
+Proceso para sexo femenino:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dFH}\OtherTok{=}\NormalTok{df}\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(CLASS}\SpecialCharTok{==}\StringTok{"HEALTHY"}\NormalTok{,SEX}\SpecialCharTok{==}\StringTok{"FEMALE"}\NormalTok{)}
+\NormalTok{dFA}\OtherTok{=}\NormalTok{df}\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(CLASS}\SpecialCharTok{==}\StringTok{"AD"}\NormalTok{,SEX}\SpecialCharTok{==}\StringTok{"FEMALE"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+ha: μAD\textless μH la variable volumen cerebral es significativamente
+menor en sujetos con Alzheimer que en sujetos sanos de sexo
+femenino.(\textless) ho: μAD \textgreater= μH volumen cerebral de AD no
+es menor que en sanos de sexo feminino.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{t.test}\NormalTok{(dFA}\SpecialCharTok{$}\NormalTok{BRAIN\_VOLUME,dFH}\SpecialCharTok{$}\NormalTok{BRAIN\_VOLUME, }\AttributeTok{alternative =} \StringTok{"less"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Welch Two Sample t-test
+## 
+## data:  dFA$BRAIN_VOLUME and dFH$BRAIN_VOLUME
+## t = -0.64776, df = 19.635, p-value = 0.2623
+## alternative hypothesis: true difference in means is less than 0
+## 95 percent confidence interval:
+##      -Inf 28.21545
+## sample estimates:
+## mean of x mean of y 
+##  1322.434  1339.380
+\end{verbatim}
+
+No se encontró evidencia suficiente para descartar H0, por lo tanto se
+estima que el volumen cerebral de los sujetos AD no es menos que
+aquellos sanos de sexo femenino.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{boxplot}\NormalTok{(dFA}\SpecialCharTok{$}\NormalTok{BRAIN\_VOLUME,dFH}\SpecialCharTok{$}\NormalTok{BRAIN\_VOLUME)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ProyectoContrastesRegresion_files/figure-latex/unnamed-chunk-11-1.pdf}
+
+Repetir el análisis anterior, pero para comprobar si las variables de
+volumen de sustancia gris o de sustancia blanca son diferentes entre
+sujetos sanos y sujetos con AD (realizar un contraste por cada
+variable).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#masculinos}
+\NormalTok{df2 }\OtherTok{=} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"Alzheimer.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## -- Column specification --------------------------------------------------------
+## cols(
+##   .default = col_double(),
+##   SEX = col_character(),
+##   CLASS = col_character()
+## )
+## i Use `spec()` for the full column specifications.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dfAM}\OtherTok{=}\NormalTok{ df2 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(SEX,CLASS,GM\_VOLUME,WM\_VOLUME) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(SEX}\SpecialCharTok{==}\StringTok{"MALE"}\NormalTok{,CLASS}\SpecialCharTok{==}\StringTok{"AD"}\NormalTok{)}
+\NormalTok{dfHM}\OtherTok{=}\NormalTok{ df2 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(SEX,CLASS,GM\_VOLUME,WM\_VOLUME) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(SEX}\SpecialCharTok{==}\StringTok{"MALE"}\NormalTok{,CLASS}\SpecialCharTok{==}\StringTok{"HEALTHY"}\NormalTok{)}
+\FunctionTok{head}\NormalTok{(dfAM)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 4
+##   SEX   CLASS GM_VOLUME WM_VOLUME
+##   <chr> <chr>     <dbl>     <dbl>
+## 1 MALE  AD         599.      433.
+## 2 MALE  AD         526.      441.
+## 3 MALE  AD         581.      515.
+## 4 MALE  AD         602.      436.
+## 5 MALE  AD         695.      497.
+## 6 MALE  AD         644.      520.
+\end{verbatim}
+
+CONTRASTE DE HIPÓTESIS:
+
+ha: μADG!=μADW las variables de volumen de sustancia gris o de sustancia
+blanca son diferentes entre sujetos con AD ho: μADG = μADW las variables
+de volumen de sustancia gris o de sustancia blanca no son diferentes
+entre sujetos con AD
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{t.test}\NormalTok{(dfAM}\SpecialCharTok{$}\NormalTok{GM\_VOLUME,dfAM}\SpecialCharTok{$}\NormalTok{WM\_VOLUME, }\AttributeTok{alternative =} \StringTok{"two.sided"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Welch Two Sample t-test
+## 
+## data:  dfAM$GM_VOLUME and dfAM$WM_VOLUME
+## t = 6.213, df = 18.012, p-value = 7.285e-06
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  107.0281 216.3849
+## sample estimates:
+## mean of x mean of y 
+##  649.8218  488.1153
+\end{verbatim}
+
+Valor p menor que 0.05 por lo tanto hay evidencia suficiente para
+rechazar h0, y se estima diferencia entre las sustancias blancas y gris
+para sujetos con AD masculinos.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(dfHM)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 4
+##   SEX   CLASS   GM_VOLUME WM_VOLUME
+##   <chr> <chr>       <dbl>     <dbl>
+## 1 MALE  HEALTHY      701.      494.
+## 2 MALE  HEALTHY      558.      428.
+## 3 MALE  HEALTHY      606.      409.
+## 4 MALE  HEALTHY      667.      471.
+## 5 MALE  HEALTHY      694.      521.
+## 6 MALE  HEALTHY      626.      506.
+\end{verbatim}
+
+CONTRASTE DE HIPÓTESIS:
+
+ha: μHG!=μHW las variables de volumen de sustancia gris o de sustancia
+blanca son diferentes entre sujetos sanos. ho: μHG = μHW las variables
+de volumen de sustancia gris o de sustancia blanca no son diferentes
+entre sujetos sanos.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{t.test}\NormalTok{(dfHM}\SpecialCharTok{$}\NormalTok{GM\_VOLUME,dfHM}\SpecialCharTok{$}\NormalTok{WM\_VOLUME, }\AttributeTok{alternative =} \StringTok{"two.sided"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Welch Two Sample t-test
+## 
+## data:  dfHM$GM_VOLUME and dfHM$WM_VOLUME
+## t = 20.271, df = 187.88, p-value < 2.2e-16
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  146.9420 178.6243
+## sample estimates:
+## mean of x mean of y 
+##  664.1903  501.4072
+\end{verbatim}
+
+Valor p menor que 0.05 por lo tanto hay evidencia suficiente para
+rechazar h0, y se estima diferencia entre las sustancias blancas y gris
+para sujetos sanos de sexo masculino.
+
+\hypertarget{analisis-para-sexo-femenino}{%
+\subsection{Analisis para sexo
+femenino}\label{analisis-para-sexo-femenino}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dfAF}\OtherTok{=}\NormalTok{ df2 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(SEX,CLASS,GM\_VOLUME,WM\_VOLUME) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(SEX}\SpecialCharTok{==}\StringTok{"FEMALE"}\NormalTok{,CLASS}\SpecialCharTok{==}\StringTok{"AD"}\NormalTok{)}
+\NormalTok{dfHf}\OtherTok{=}\NormalTok{ df2 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(SEX,CLASS,GM\_VOLUME,WM\_VOLUME) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(SEX}\SpecialCharTok{==}\StringTok{"FEMALE"}\NormalTok{,CLASS}\SpecialCharTok{==}\StringTok{"HEALTHY"}\NormalTok{)}
+\FunctionTok{head}\NormalTok{(dfAF)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 4
+##   SEX    CLASS GM_VOLUME WM_VOLUME
+##   <chr>  <chr>     <dbl>     <dbl>
+## 1 FEMALE AD         552.      446.
+## 2 FEMALE AD         444.      393.
+## 3 FEMALE AD         665.      492.
+## 4 FEMALE AD         559.      433.
+## 5 FEMALE AD         409.      437.
+## 6 FEMALE AD         615.      502.
+\end{verbatim}
+
+CONTRASTE DE HIPÓTESIS:
+
+ha: μADG!=μADW las variables de volumen de sustancia gris o de sustancia
+blanca son diferentes entre sujetos con AD de sexo femenino. ho: μADG =
+μADW las variables de volumen de sustancia gris o de sustancia blanca no
+son diferentes entre sujetos con AD de sexo femenino.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{t.test}\NormalTok{(dfAF}\SpecialCharTok{$}\NormalTok{GM\_VOLUME,dfAF}\SpecialCharTok{$}\NormalTok{WM\_VOLUME, }\AttributeTok{alternative =} \StringTok{"two.sided"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Welch Two Sample t-test
+## 
+## data:  dfAF$GM_VOLUME and dfAF$WM_VOLUME
+## t = 7.4354, df = 23.426, p-value = 1.31e-07
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  102.7864 181.9164
+## sample estimates:
+## mean of x mean of y 
+##  567.9276  425.5762
+\end{verbatim}
+
+Valor p menor que 0.05 por lo tanto hay evidencia suficiente para
+rechazar h0, y se estima diferencia entre las sustancias blancas y gris
+para sujetos con AD de sexo femenino.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(dfHf)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 4
+##   SEX    CLASS   GM_VOLUME WM_VOLUME
+##   <chr>  <chr>       <dbl>     <dbl>
+## 1 FEMALE HEALTHY      545.      365.
+## 2 FEMALE HEALTHY      624.      414.
+## 3 FEMALE HEALTHY      611.      467.
+## 4 FEMALE HEALTHY      606.      471.
+## 5 FEMALE HEALTHY      520.      372.
+## 6 FEMALE HEALTHY      575.      438.
+\end{verbatim}
+
+CONTRASTE DE HIPÓTESIS:
+
+ha: μHG!=μHW las variables de volumen de sustancia gris o de sustancia
+blanca son diferentes entre sujetos sanos de sexo femenino. ho: μHG =
+μHW las variables de volumen de sustancia gris o de sustancia blanca no
+son diferentes entre sujetos sanos de sexo femenino.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{t.test}\NormalTok{(dfHf}\SpecialCharTok{$}\NormalTok{GM\_VOLUME,dfHf}\SpecialCharTok{$}\NormalTok{WM\_VOLUME, }\AttributeTok{alternative =} \StringTok{"two.sided"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Welch Two Sample t-test
+## 
+## data:  dfHf$GM_VOLUME and dfHf$WM_VOLUME
+## t = 31.268, df = 231.26, p-value < 2.2e-16
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  160.9704 182.6209
+## sample estimates:
+## mean of x mean of y 
+##  600.2010  428.4054
+\end{verbatim}
+
+Valor p menor que 0.05 por lo tanto hay evidencia suficiente para
+rechazar h0, y se estima diferencia entre las sustancias blancas y gris
+para sujetos sanos de sexo femenino.
+
+¿Es diferente la incidencia de la enfermedad en pacientes de distinto
+sexo?
+
+¿Son independientes las variables SEX y CLASS? Usa un test χ2 para
+comprobar la independencia y la correlación entre ambas.
+
+H0: Son independientes las variables SEX y CLASS. H1: No son
+independientes las variables SEX y CLASS.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tab }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{SEX, df}\SpecialCharTok{$}\NormalTok{CLASS)}
+\NormalTok{tab}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         
+##           AD HEALTHY
+##   FEMALE  17     137
+##   MALE    13      95
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{chisq.test}\NormalTok{(tab)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Pearson's Chi-squared test with Yates' continuity correction
+## 
+## data:  tab
+## X-squared = 0.0027726, df = 1, p-value = 0.958
+\end{verbatim}
+
+Valor p mayor que 0.05 por lo tanto no hay evidencia suficiente para
+rechazar h0, y se estima independencia entre las variables SEX y CLASS.
+
+El índice χ2 toma el valor 0 cuando dos variables son independientes.
+
+\hypertarget{regresion}{%
+\section{REGRESION}\label{regresion}}
+
+Nos planteamos establecer un patrón de atrofia anual (es decir,
+dependiendo de la edad) en el cerebro. ¿Cómo varía el volumen del
+cerebro con la edad?
+
+Queremos establecer un modelo de regresión que use como predictores las
+variables sexo y edad para estimar el valor del volumen cerebral
+(variable BRAIN\_VOLUME).
+
+\hypertarget{modelo-de-regresiuxf3n-simple-y-polinomico.}{%
+\subsubsection{modelo de regresión simple y
+polinomico.}\label{modelo-de-regresiuxf3n-simple-y-polinomico.}}
+
+Hipotesis para modelos de regresión Ho: La función corresponde el modelo
+H1: La función no corresponde al modelo Hipotesis para anova Ho: El
+modelo más complejo no mejora al más simple H1: El modelo más complejo
+mejora al más simple
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dfR}\OtherTok{=}\NormalTok{ df2 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(BRAIN\_VOLUME,AGE,SEX) }
+\NormalTok{modelo\_1 }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(BRAIN\_VOLUME }\SpecialCharTok{\textasciitilde{}}\NormalTok{ AGE, }\AttributeTok{data =}\NormalTok{ dfR)}
+\NormalTok{modelo\_2 }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(BRAIN\_VOLUME }\SpecialCharTok{\textasciitilde{}} \FunctionTok{poly}\NormalTok{(AGE, }\DecValTok{2}\NormalTok{), }\AttributeTok{data =}\NormalTok{ dfR)}
+\NormalTok{modelo\_3 }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(BRAIN\_VOLUME }\SpecialCharTok{\textasciitilde{}} \FunctionTok{poly}\NormalTok{(AGE, }\DecValTok{3}\NormalTok{), }\AttributeTok{data =}\NormalTok{ dfR)}
+\NormalTok{modelo\_4 }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(BRAIN\_VOLUME }\SpecialCharTok{\textasciitilde{}} \FunctionTok{poly}\NormalTok{(AGE, }\DecValTok{4}\NormalTok{), }\AttributeTok{data =}\NormalTok{ dfR)}
+\NormalTok{modelo\_5 }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(BRAIN\_VOLUME }\SpecialCharTok{\textasciitilde{}} \FunctionTok{poly}\NormalTok{(AGE, }\DecValTok{5}\NormalTok{), }\AttributeTok{data =}\NormalTok{ dfR)}
+
+\FunctionTok{anova}\NormalTok{(modelo\_1, modelo\_2, modelo\_3, modelo\_4, modelo\_5)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Analysis of Variance Table
+## 
+## Model 1: BRAIN_VOLUME ~ AGE
+## Model 2: BRAIN_VOLUME ~ poly(AGE, 2)
+## Model 3: BRAIN_VOLUME ~ poly(AGE, 3)
+## Model 4: BRAIN_VOLUME ~ poly(AGE, 4)
+## Model 5: BRAIN_VOLUME ~ poly(AGE, 5)
+##   Res.Df     RSS Df Sum of Sq      F   Pr(>F)   
+## 1    260 5547943                                
+## 2    259 5381389  1    166554 8.0151 0.005007 **
+## 3    258 5379546  1      1843 0.0887 0.766097   
+## 4    257 5329182  1     50364 2.4237 0.120750   
+## 5    256 5319691  1      9491 0.4568 0.499752   
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{f1}\OtherTok{=} \FunctionTok{lm}\NormalTok{(dfR}\SpecialCharTok{$}\NormalTok{BRAIN\_VOLUME }\SpecialCharTok{\textasciitilde{}}\NormalTok{ dfR}\SpecialCharTok{$}\NormalTok{AGE }\SpecialCharTok{+}\NormalTok{ dfR}\SpecialCharTok{$}\NormalTok{SEX)}
+\NormalTok{f2}\OtherTok{=} \FunctionTok{lm}\NormalTok{(dfR}\SpecialCharTok{$}\NormalTok{BRAIN\_VOLUME }\SpecialCharTok{\textasciitilde{}}\NormalTok{ dfR}\SpecialCharTok{$}\NormalTok{AGE }\SpecialCharTok{+}\NormalTok{ dfR}\SpecialCharTok{$}\NormalTok{SEX }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(dfR}\SpecialCharTok{$}\NormalTok{AGE}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{))}
+\NormalTok{f3}\OtherTok{=} \FunctionTok{lm}\NormalTok{(dfR}\SpecialCharTok{$}\NormalTok{BRAIN\_VOLUME }\SpecialCharTok{\textasciitilde{}}\NormalTok{ dfR}\SpecialCharTok{$}\NormalTok{AGE }\SpecialCharTok{+}\NormalTok{ dfR}\SpecialCharTok{$}\NormalTok{SEX }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(dfR}\SpecialCharTok{$}\NormalTok{AGE}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(dfR}\SpecialCharTok{$}\NormalTok{AGE}\SpecialCharTok{\^{}}\DecValTok{3}\NormalTok{))}
+\NormalTok{f4}\OtherTok{=} \FunctionTok{lm}\NormalTok{(dfR}\SpecialCharTok{$}\NormalTok{BRAIN\_VOLUME }\SpecialCharTok{\textasciitilde{}}\NormalTok{ dfR}\SpecialCharTok{$}\NormalTok{AGE }\SpecialCharTok{+}\NormalTok{ dfR}\SpecialCharTok{$}\NormalTok{SEX }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(dfR}\SpecialCharTok{$}\NormalTok{AGE}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(dfR}\SpecialCharTok{$}\NormalTok{AGE}\SpecialCharTok{\^{}}\DecValTok{3}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(dfR}\SpecialCharTok{$}\NormalTok{AGE}\SpecialCharTok{\^{}}\DecValTok{4}\NormalTok{))}
+\NormalTok{f5}\OtherTok{=} \FunctionTok{lm}\NormalTok{(dfR}\SpecialCharTok{$}\NormalTok{BRAIN\_VOLUME }\SpecialCharTok{\textasciitilde{}}\NormalTok{ dfR}\SpecialCharTok{$}\NormalTok{AGE }\SpecialCharTok{+}\NormalTok{ dfR}\SpecialCharTok{$}\NormalTok{SEX }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(dfR}\SpecialCharTok{$}\NormalTok{AGE}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(dfR}\SpecialCharTok{$}\NormalTok{AGE}\SpecialCharTok{\^{}}\DecValTok{3}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(dfR}\SpecialCharTok{$}\NormalTok{AGE}\SpecialCharTok{\^{}}\DecValTok{4}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(dfR}\SpecialCharTok{$}\NormalTok{AGE}\SpecialCharTok{\^{}}\DecValTok{5}\NormalTok{))}
+\FunctionTok{anova}\NormalTok{(f1,f2,f3,f4,f5)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Analysis of Variance Table
+## 
+## Model 1: dfR$BRAIN_VOLUME ~ dfR$AGE + dfR$SEX
+## Model 2: dfR$BRAIN_VOLUME ~ dfR$AGE + dfR$SEX + I(dfR$AGE^2)
+## Model 3: dfR$BRAIN_VOLUME ~ dfR$AGE + dfR$SEX + I(dfR$AGE^2) + I(dfR$AGE^3)
+## Model 4: dfR$BRAIN_VOLUME ~ dfR$AGE + dfR$SEX + I(dfR$AGE^2) + I(dfR$AGE^3) + 
+##     I(dfR$AGE^4)
+## Model 5: dfR$BRAIN_VOLUME ~ dfR$AGE + dfR$SEX + I(dfR$AGE^2) + I(dfR$AGE^3) + 
+##     I(dfR$AGE^4) + I(dfR$AGE^5)
+##   Res.Df     RSS Df Sum of Sq      F  Pr(>F)  
+## 1    259 2906017                              
+## 2    258 2861992  1     44026 4.0217 0.04597 *
+## 3    257 2846303  1     15689 1.4332 0.23236  
+## 4    256 2794262  1     52040 4.7538 0.03015 *
+## 5    255 2791479  1      2783 0.2543 0.61452  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\#degree 2 is the better
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(f2) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = dfR$BRAIN_VOLUME ~ dfR$AGE + dfR$SEX + I(dfR$AGE^2))
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -255.59  -67.48    0.14   51.98  427.06 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  422.95693  418.29806   1.011   0.3129    
+## dfR$AGE       23.70259   11.31683   2.094   0.0372 *  
+## dfR$SEXMALE  200.74167   13.32028  15.070   <2e-16 ***
+## I(dfR$AGE^2)  -0.15162    0.07611  -1.992   0.0474 *  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 105.3 on 258 degrees of freedom
+## Multiple R-squared:  0.4861, Adjusted R-squared:  0.4801 
+## F-statistic: 81.34 on 3 and 258 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+Cada una de las pendientes de un modelo de regresión lineal múltiple se
+define del siguiente modo: Si el resto de variables se mantienen
+constantes, por cada unidad que aumenta el predictor en cuestión, la
+variable Y varía en promedio tantas unidades como indica la pendiente.
+En el caso del predictor AGE, si el resto de variables no varían, por
+cada unidad de AGE que aumenta el volumen cerebral se aumenta en
+promedio 23.70259 unidades. Las variables son significativas (al menos
+`*' 0.05), El coeficiente de determinacion R\^{}2(0.4982 o 49.82\%): es
+el porcentaje de la variación en la variable de respuesta que es
+explicado por un modelo lineal. El R-cuadrado siempre está entre 0 y
+100\%:
+
+0\% indica que el modelo no explica ninguna porción de la variabilidad
+de los datos de respuesta en torno a su media. 100\% indica que el
+modelo explica toda la variabilidad de los datos de respuesta en torno a
+su media.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot.new}\NormalTok{()}
+\FunctionTok{plot}\NormalTok{(}\FunctionTok{fitted}\NormalTok{(f2), }\FunctionTok{residuals}\NormalTok{(f2), }\AttributeTok{xlab =} \StringTok{"Approached values"}\NormalTok{,  }\AttributeTok{ylab =} \StringTok{"Residuals"}\NormalTok{)}
+  \FunctionTok{abline}\NormalTok{(}\AttributeTok{h=}\DecValTok{0}\NormalTok{, }\AttributeTok{lty=}\DecValTok{2}\NormalTok{)}
+    \FunctionTok{lines}\NormalTok{(}\FunctionTok{smooth.spline}\NormalTok{(}\FunctionTok{fitted}\NormalTok{(f2), }\FunctionTok{residuals}\NormalTok{(f2)))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ProyectoContrastesRegresion_files/figure-latex/unnamed-chunk-25-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(f2}\SpecialCharTok{$}\NormalTok{residuals)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ProyectoContrastesRegresion_files/figure-latex/unnamed-chunk-26-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(f2}\SpecialCharTok{$}\NormalTok{residuals)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+## -255.5923  -67.4764    0.1357    0.0000   51.9849  427.0647
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{boxplot}\NormalTok{(f2}\SpecialCharTok{$}\NormalTok{residuals)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ProyectoContrastesRegresion_files/figure-latex/unnamed-chunk-26-2.pdf}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\#Caret
+
+Caret actúa como interfaz única para otros muchos métodos. En total,
+hace de interfaz con 136 métodos de regresión distintos.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#install.packages("caret")}
+\FunctionTok{library}\NormalTok{(caret)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: lattice
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'caret'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:purrr':
+## 
+##     lift
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{modelLookup}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                   model           parameter
+## 1                   ada                iter
+## 2                   ada            maxdepth
+## 3                   ada                  nu
+## 4                AdaBag              mfinal
+## 5                AdaBag            maxdepth
+## 9              adaboost               nIter
+## 10             adaboost              method
+## 6           AdaBoost.M1              mfinal
+## 7           AdaBoost.M1            maxdepth
+## 8           AdaBoost.M1           coeflearn
+## 11                amdai               model
+## 12                ANFIS          num.labels
+## 13                ANFIS            max.iter
+## 14               avNNet                size
+## 15               avNNet               decay
+## 16               avNNet                 bag
+## 17                 awnb              smooth
+## 18                awtan               score
+## 19                awtan              smooth
+## 20                  bag                vars
+## 21             bagEarth              nprune
+## 22             bagEarth              degree
+## 23          bagEarthGCV              degree
+## 24               bagFDA              degree
+## 25               bagFDA              nprune
+## 26            bagFDAGCV              degree
+## 27                  bam              select
+## 28                  bam              method
+## 29          bartMachine           num_trees
+## 30          bartMachine                   k
+## 31          bartMachine               alpha
+## 32          bartMachine                beta
+## 33          bartMachine                  nu
+## 34             bayesglm           parameter
+## 35                binda        lambda.freqs
+## 36           blackboost               mstop
+## 37           blackboost            maxdepth
+## 38               blasso            sparsity
+## 39       blassoAveraged           parameter
+## 40               bridge           parameter
+## 41                 brnn             neurons
+## 42                BstLm               mstop
+## 43                BstLm                  nu
+## 44                bstSm               mstop
+## 45                bstSm                  nu
+## 46              bstTree               mstop
+## 47              bstTree            maxdepth
+## 48              bstTree                  nu
+## 49                 C5.0              trials
+## 50                 C5.0               model
+## 51                 C5.0              winnow
+## 52             C5.0Cost              trials
+## 53             C5.0Cost               model
+## 54             C5.0Cost              winnow
+## 55             C5.0Cost                cost
+## 56            C5.0Rules           parameter
+## 57             C5.0Tree           parameter
+## 58              cforest                mtry
+## 59                chaid              alpha2
+## 60                chaid              alpha3
+## 61                chaid              alpha4
+## 62               CSimca           parameter
+## 63                ctree        mincriterion
+## 64               ctree2            maxdepth
+## 65               ctree2        mincriterion
+## 66               cubist          committees
+## 67               cubist           neighbors
+## 68                  dda               model
+## 69                  dda           shrinkage
+## 70            deepboost            num_iter
+## 71            deepboost          tree_depth
+## 72            deepboost                beta
+## 73            deepboost              lambda
+## 74            deepboost           loss_type
+## 75               DENFIS                Dthr
+## 76               DENFIS            max.iter
+## 77                  dnn              layer1
+## 78                  dnn              layer2
+## 79                  dnn              layer3
+## 80                  dnn      hidden_dropout
+## 81                  dnn     visible_dropout
+## 82            dwdLinear              lambda
+## 83            dwdLinear                qval
+## 84              dwdPoly              lambda
+## 85              dwdPoly                qval
+## 86              dwdPoly              degree
+## 87              dwdPoly               scale
+## 88            dwdRadial              lambda
+## 89            dwdRadial                qval
+## 90            dwdRadial               sigma
+## 91                earth              nprune
+## 92                earth              degree
+## 93                  elm                nhid
+## 94                  elm              actfun
+## 95                 enet            fraction
+## 96                 enet              lambda
+## 97               evtree               alpha
+## 98           extraTrees                mtry
+## 99           extraTrees       numRandomCuts
+## 100                 fda              degree
+## 101                 fda              nprune
+## 102             FH.GBML        max.num.rule
+## 103             FH.GBML           popu.size
+## 104             FH.GBML             max.gen
+## 105              FIR.DM          num.labels
+## 106              FIR.DM            max.iter
+## 107                foba                   k
+## 108                foba              lambda
+## 109           FRBCS.CHI          num.labels
+## 110           FRBCS.CHI             type.mf
+## 111             FRBCS.W          num.labels
+## 112             FRBCS.W             type.mf
+## 113              FS.HGD          num.labels
+## 114              FS.HGD            max.iter
+## 115                 gam              select
+## 116                 gam              method
+## 117            gamboost               mstop
+## 118            gamboost               prune
+## 119            gamLoess                span
+## 120            gamLoess              degree
+## 121           gamSpline                  df
+## 122       gaussprLinear           parameter
+## 123         gaussprPoly              degree
+## 124         gaussprPoly               scale
+## 125       gaussprRadial               sigma
+## 131                 gbm             n.trees
+## 132                 gbm   interaction.depth
+## 133                 gbm           shrinkage
+## 134                 gbm      n.minobsinnode
+## 126             gbm_h2o              ntrees
+## 127             gbm_h2o           max_depth
+## 128             gbm_h2o            min_rows
+## 129             gbm_h2o          learn_rate
+## 130             gbm_h2o     col_sample_rate
+## 135            gcvEarth              degree
+## 136        GFS.FR.MOGUL             max.gen
+## 137        GFS.FR.MOGUL            max.iter
+## 138        GFS.FR.MOGUL            max.tune
+## 139           GFS.LT.RS           popu.size
+## 140           GFS.LT.RS          num.labels
+## 141           GFS.LT.RS             max.gen
+## 142          GFS.THRIFT           popu.size
+## 143          GFS.THRIFT          num.labels
+## 144          GFS.THRIFT             max.gen
+## 146                 glm           parameter
+## 145              glm.nb                link
+## 147            glmboost               mstop
+## 148            glmboost               prune
+## 151              glmnet               alpha
+## 152              glmnet              lambda
+## 149          glmnet_h2o               alpha
+## 150          glmnet_h2o              lambda
+## 153          glmStepAIC           parameter
+## 154                gpls              K.prov
+## 155                 hda               gamma
+## 156                 hda              lambda
+## 157                 hda              newdim
+## 158                hdda           threshold
+## 159                hdda               model
+## 160               hdrda               gamma
+## 161               hdrda              lambda
+## 162               hdrda      shrinkage_type
+## 163               HYFIS          num.labels
+## 164               HYFIS            max.iter
+## 165                 icr              n.comp
+## 166                 J48                   C
+## 167                 J48                   M
+## 168                JRip              NumOpt
+## 169                JRip            NumFolds
+## 170                JRip          MinWeights
+## 171           kernelpls               ncomp
+## 172                kknn                kmax
+## 173                kknn            distance
+## 174                kknn              kernel
+## 175                 knn                   k
+## 176            krlsPoly              lambda
+## 177            krlsPoly              degree
+## 178          krlsRadial              lambda
+## 179          krlsRadial               sigma
+## 180                lars            fraction
+## 181               lars2                step
+## 182               lasso            fraction
+## 183                 lda           parameter
+## 184                lda2               dimen
+## 185        leapBackward               nvmax
+## 186         leapForward               nvmax
+## 187             leapSeq               nvmax
+## 188               Linda           parameter
+## 189                  lm           intercept
+## 190           lmStepAIC           parameter
+## 191                 LMT                iter
+## 192              loclda                   k
+## 193            logicBag             nleaves
+## 194            logicBag              ntrees
+## 195          LogitBoost               nIter
+## 196              logreg            treesize
+## 197              logreg              ntrees
+## 198         lssvmLinear                 tau
+## 199           lssvmPoly              degree
+## 200           lssvmPoly               scale
+## 201           lssvmPoly                 tau
+## 202         lssvmRadial               sigma
+## 203         lssvmRadial                 tau
+## 204                 lvq                size
+## 205                 lvq                   k
+## 206                  M5              pruned
+## 207                  M5            smoothed
+## 208                  M5               rules
+## 209             M5Rules              pruned
+## 210             M5Rules            smoothed
+## 211                manb              smooth
+## 212                manb               prior
+## 213                 mda          subclasses
+## 214                Mlda           parameter
+## 215                 mlp                size
+## 216       mlpKerasDecay                size
+## 217       mlpKerasDecay              lambda
+## 218       mlpKerasDecay          batch_size
+## 219       mlpKerasDecay                  lr
+## 220       mlpKerasDecay                 rho
+## 221       mlpKerasDecay               decay
+## 222       mlpKerasDecay          activation
+## 223   mlpKerasDecayCost                size
+## 224   mlpKerasDecayCost              lambda
+## 225   mlpKerasDecayCost          batch_size
+## 226   mlpKerasDecayCost                  lr
+## 227   mlpKerasDecayCost                 rho
+## 228   mlpKerasDecayCost               decay
+## 229   mlpKerasDecayCost                cost
+## 230   mlpKerasDecayCost          activation
+## 231     mlpKerasDropout                size
+## 232     mlpKerasDropout             dropout
+## 233     mlpKerasDropout          batch_size
+## 234     mlpKerasDropout                  lr
+## 235     mlpKerasDropout                 rho
+## 236     mlpKerasDropout               decay
+## 237     mlpKerasDropout          activation
+## 238 mlpKerasDropoutCost                size
+## 239 mlpKerasDropoutCost             dropout
+## 240 mlpKerasDropoutCost          batch_size
+## 241 mlpKerasDropoutCost                  lr
+## 242 mlpKerasDropoutCost                 rho
+## 243 mlpKerasDropoutCost               decay
+## 244 mlpKerasDropoutCost                cost
+## 245 mlpKerasDropoutCost          activation
+## 246               mlpML              layer1
+## 247               mlpML              layer2
+## 248               mlpML              layer3
+## 249              mlpSGD                size
+## 250              mlpSGD               l2reg
+## 251              mlpSGD              lambda
+## 252              mlpSGD          learn_rate
+## 253              mlpSGD            momentum
+## 254              mlpSGD               gamma
+## 255              mlpSGD         minibatchsz
+## 256              mlpSGD             repeats
+## 257      mlpWeightDecay                size
+## 258      mlpWeightDecay               decay
+## 259    mlpWeightDecayML              layer1
+## 260    mlpWeightDecayML              layer2
+## 261    mlpWeightDecayML              layer3
+## 262    mlpWeightDecayML               decay
+## 263              monmlp             hidden1
+## 264              monmlp          n.ensemble
+## 265             msaenet              alphas
+## 266             msaenet              nsteps
+## 267             msaenet               scale
+## 268            multinom               decay
+## 269               mxnet              layer1
+## 270               mxnet              layer2
+## 271               mxnet              layer3
+## 272               mxnet       learning.rate
+## 273               mxnet            momentum
+## 274               mxnet             dropout
+## 275               mxnet          activation
+## 276           mxnetAdam              layer1
+## 277           mxnetAdam              layer2
+## 278           mxnetAdam              layer3
+## 279           mxnetAdam             dropout
+## 280           mxnetAdam               beta1
+## 281           mxnetAdam               beta2
+## 282           mxnetAdam        learningrate
+## 283           mxnetAdam          activation
+## 284         naive_bayes             laplace
+## 285         naive_bayes           usekernel
+## 286         naive_bayes              adjust
+## 287                  nb                  fL
+## 288                  nb           usekernel
+## 289                  nb              adjust
+## 290          nbDiscrete              smooth
+## 291            nbSearch                   k
+## 292            nbSearch             epsilon
+## 293            nbSearch              smooth
+## 294            nbSearch        final_smooth
+## 295            nbSearch           direction
+## 296           neuralnet              layer1
+## 297           neuralnet              layer2
+## 298           neuralnet              layer3
+## 299                nnet                size
+## 300                nnet               decay
+## 301                nnls           parameter
+## 302         nodeHarvest            maxinter
+## 303         nodeHarvest                mode
+## 304                null           parameter
+## 305                OneR           parameter
+## 306          ordinalNet               alpha
+## 307          ordinalNet            criteria
+## 308          ordinalNet                link
+## 309           ordinalRF               nsets
+## 310           ordinalRF         ntreeperdiv
+## 311           ordinalRF          ntreefinal
+## 312              ORFlog                mtry
+## 313              ORFpls                mtry
+## 314            ORFridge                mtry
+## 315              ORFsvm                mtry
+## 316                ownn                   K
+## 317                 pam           threshold
+## 318               parRF                mtry
+## 319                PART           threshold
+## 320                PART              pruned
+## 321             partDSA      cut.off.growth
+## 322             partDSA                 MPD
+## 323             pcaNNet                size
+## 324             pcaNNet               decay
+## 325                 pcr               ncomp
+## 326                 pda              lambda
+## 327                pda2                  df
+## 328           penalized             lambda1
+## 329           penalized             lambda2
+## 330        PenalizedLDA              lambda
+## 331        PenalizedLDA                   K
+## 332                 plr              lambda
+## 333                 plr                  cp
+## 334                 pls               ncomp
+## 335             plsRglm                  nt
+## 336             plsRglm   alpha.pvals.expli
+## 337                polr              method
+## 338                 ppr              nterms
+## 339                PRIM          peel.alpha
+## 340                PRIM         paste.alpha
+## 341                PRIM            mass.min
+## 342          protoclass                 eps
+## 343          protoclass           Minkowski
+## 344                 qda           parameter
+## 345              QdaCov           parameter
+## 346                 qrf                mtry
+## 347                qrnn            n.hidden
+## 348                qrnn             penalty
+## 349                qrnn                 bag
+## 350           randomGLM maxInteractionOrder
+## 351              ranger                mtry
+## 352              ranger           splitrule
+## 353              ranger       min.node.size
+## 354                 rbf                size
+## 355              rbfDDA   negativeThreshold
+## 356             Rborist           predFixed
+## 357             Rborist             minNode
+## 358                 rda               gamma
+## 359                 rda              lambda
+## 360         regLogistic                cost
+## 361         regLogistic                loss
+## 362         regLogistic             epsilon
+## 363              relaxo              lambda
+## 364              relaxo                 phi
+## 365                  rf                mtry
+## 366              rFerns               depth
+## 367               RFlda                   q
+## 368             rfRules                mtry
+## 369             rfRules            maxdepth
+## 370               ridge              lambda
+## 371                rlda           estimator
+## 372                 rlm           intercept
+## 373                 rlm                 psi
+## 374                rmda                   K
+## 375                rmda               model
+## 376                rocc              xgenes
+## 377      rotationForest                   K
+## 378      rotationForest                   L
+## 379    rotationForestCp                   K
+## 380    rotationForestCp                   L
+## 381    rotationForestCp                  cp
+## 382               rpart                  cp
+## 383            rpart1SE           parameter
+## 384              rpart2            maxdepth
+## 385           rpartCost                  cp
+## 386           rpartCost                Cost
+## 387          rpartScore                  cp
+## 388          rpartScore               split
+## 389          rpartScore               prune
+## 390             rqlasso              lambda
+## 391                rqnc              lambda
+## 392                rqnc             penalty
+## 393                 RRF                mtry
+## 394                 RRF             coefReg
+## 395                 RRF             coefImp
+## 396           RRFglobal                mtry
+## 397           RRFglobal             coefReg
+## 398               rrlda              lambda
+## 399               rrlda                  hp
+## 400               rrlda             penalty
+## 401              RSimca           parameter
+## 402           rvmLinear           parameter
+## 403             rvmPoly               scale
+## 404             rvmPoly              degree
+## 405           rvmRadial               sigma
+## 406                 SBC                 r.a
+## 407                 SBC            eps.high
+## 408                 SBC             eps.low
+## 409                 sda            diagonal
+## 410                 sda              lambda
+## 411                sdwd              lambda
+## 412                sdwd             lambda2
+## 413              simpls               ncomp
+## 414               SLAVE          num.labels
+## 415               SLAVE            max.iter
+## 416               SLAVE             max.gen
+## 417                slda           parameter
+## 418                smda             NumVars
+## 419                smda              lambda
+## 420                smda                   R
+## 421                 snn              lambda
+## 422           sparseLDA             NumVars
+## 423           sparseLDA              lambda
+## 424           spikeslab                vars
+## 425                spls                   K
+## 426                spls                 eta
+## 427                spls               kappa
+## 428             stepLDA              maxvar
+## 429             stepLDA           direction
+## 430             stepQDA              maxvar
+## 431             stepQDA           direction
+## 432             superpc           threshold
+## 433             superpc        n.components
+## 434 svmBoundrangeString              length
+## 435 svmBoundrangeString                   C
+## 436       svmExpoString              lambda
+## 437       svmExpoString                   C
+## 438           svmLinear                   C
+## 439          svmLinear2                cost
+## 440          svmLinear3                cost
+## 441          svmLinear3                Loss
+## 442    svmLinearWeights                cost
+## 443    svmLinearWeights              weight
+## 444   svmLinearWeights2                cost
+## 445   svmLinearWeights2                Loss
+## 446   svmLinearWeights2              weight
+## 447             svmPoly              degree
+## 448             svmPoly               scale
+## 449             svmPoly                   C
+## 450           svmRadial               sigma
+## 451           svmRadial                   C
+## 452       svmRadialCost                   C
+## 453      svmRadialSigma               sigma
+## 454      svmRadialSigma                   C
+## 455    svmRadialWeights               sigma
+## 456    svmRadialWeights                   C
+## 457    svmRadialWeights              Weight
+## 458   svmSpectrumString              length
+## 459   svmSpectrumString                   C
+## 460                 tan               score
+## 461                 tan              smooth
+## 462           tanSearch                   k
+## 463           tanSearch             epsilon
+## 464           tanSearch              smooth
+## 465           tanSearch        final_smooth
+## 466           tanSearch                  sp
+## 467             treebag           parameter
+## 468          vbmpRadial       estimateTheta
+## 469          vglmAdjCat            parallel
+## 470          vglmAdjCat                link
+## 471       vglmContRatio            parallel
+## 472       vglmContRatio                link
+## 473      vglmCumulative            parallel
+## 474      vglmCumulative                link
+## 475       widekernelpls               ncomp
+## 476                  WM          num.labels
+## 477                  WM             type.mf
+## 478                wsrf                mtry
+## 479             xgbDART             nrounds
+## 480             xgbDART           max_depth
+## 481             xgbDART                 eta
+## 482             xgbDART               gamma
+## 483             xgbDART           subsample
+## 484             xgbDART    colsample_bytree
+## 485             xgbDART           rate_drop
+## 486             xgbDART           skip_drop
+## 487             xgbDART    min_child_weight
+## 488           xgbLinear             nrounds
+## 489           xgbLinear              lambda
+## 490           xgbLinear               alpha
+## 491           xgbLinear                 eta
+## 492             xgbTree             nrounds
+## 493             xgbTree           max_depth
+## 494             xgbTree                 eta
+## 495             xgbTree               gamma
+## 496             xgbTree    colsample_bytree
+## 497             xgbTree    min_child_weight
+## 498             xgbTree           subsample
+## 499                 xyf                xdim
+## 500                 xyf                ydim
+## 501                 xyf        user.weights
+## 502                 xyf                topo
+##                                                                                       label
+## 1                                                                                    #Trees
+## 2                                                                            Max Tree Depth
+## 3                                                                             Learning Rate
+## 4                                                                                    #Trees
+## 5                                                                            Max Tree Depth
+## 9                                                                                    #Trees
+## 10                                                                                   Method
+## 6                                                                                    #Trees
+## 7                                                                            Max Tree Depth
+## 8                                                                          Coefficient Type
+## 11                                                                               Model Type
+## 12                                                                             #Fuzzy Terms
+## 13                                                                          Max. Iterations
+## 14                                                                            #Hidden Units
+## 15                                                                             Weight Decay
+## 16                                                                                  Bagging
+## 17                                                                      Smoothing Parameter
+## 18                                                                           Score Function
+## 19                                                                      Smoothing Parameter
+## 20                                                            #Randomly Selected Predictors
+## 21                                                                                   #Terms
+## 22                                                                           Product Degree
+## 23                                                                           Product Degree
+## 24                                                                           Product Degree
+## 25                                                                                   #Terms
+## 26                                                                           Product Degree
+## 27                                                                        Feature Selection
+## 28                                                                                   Method
+## 29                                                                                   #Trees
+## 30                                                                           Prior Boundary
+## 31                                                        Base Terminal Node Hyperparameter
+## 32                                                       Power Terminal Node Hyperparameter
+## 33                                                                       Degrees of Freedom
+## 34                                                                                parameter
+## 35                                                                      Shrinkage Intensity
+## 36                                                                                   #Trees
+## 37                                                                           Max Tree Depth
+## 38                                                                       Sparsity Threshold
+## 39                                                                                parameter
+## 40                                                                                parameter
+## 41                                                                                # Neurons
+## 42                                                                    # Boosting Iterations
+## 43                                                                                Shrinkage
+## 44                                                                    # Boosting Iterations
+## 45                                                                                Shrinkage
+## 46                                                                    # Boosting Iterations
+## 47                                                                           Max Tree Depth
+## 48                                                                                Shrinkage
+## 49                                                                    # Boosting Iterations
+## 50                                                                               Model Type
+## 51                                                                                   Winnow
+## 52                                                                    # Boosting Iterations
+## 53                                                                               Model Type
+## 54                                                                                   Winnow
+## 55                                                                                     Cost
+## 56                                                                                     none
+## 57                                                                                     none
+## 58                                                            #Randomly Selected Predictors
+## 59                                                                        Merging Threshold
+## 60                                                        Splitting former Merged Threshold
+## 61  \n                                                    Splitting former Merged Threshold
+## 62                                                                                parameter
+## 63                                                                    1 - P-Value Threshold
+## 64                                                                           Max Tree Depth
+## 65                                                                    1 - P-Value Threshold
+## 66                                                                              #Committees
+## 67                                                                               #Instances
+## 68                                                                                    Model
+## 69                                                                           Shrinkage Type
+## 70                                                                    # Boosting Iterations
+## 71                                                                               Tree Depth
+## 72                                                                        L1 Regularization
+## 73                                                                Tree Depth Regularization
+## 74                                                                                     Loss
+## 75                                                                                Threshold
+## 76                                                                          Max. Iterations
+## 77                                                                           Hidden Layer 1
+## 78                                                                           Hidden Layer 2
+## 79                                                                           Hidden Layer 3
+## 80                                                                          Hidden Dropouts
+## 81                                                                          Visible Dropout
+## 82                                                                 Regularization Parameter
+## 83                                                                                        q
+## 84                                                                 Regularization Parameter
+## 85                                                                                        q
+## 86                                                                        Polynomial Degree
+## 87                                                                                    Scale
+## 88                                                                 Regularization Parameter
+## 89                                                                                        q
+## 90                                                                                    Sigma
+## 91                                                                                   #Terms
+## 92                                                                           Product Degree
+## 93                                                                            #Hidden Units
+## 94                                                                      Activation Function
+## 95                                                                Fraction of Full Solution
+## 96                                                                             Weight Decay
+## 97                                                                     Complexity Parameter
+## 98                                                           # Randomly Selected Predictors
+## 99                                                                            # Random Cuts
+## 100                                                                          Product Degree
+## 101                                                                                  #Terms
+## 102                                                                             Max. #Rules
+## 103                                                                         Population Size
+## 104                                                                        Max. Generations
+## 105                                                                            #Fuzzy Terms
+## 106                                                                         Max. Iterations
+## 107                                                                     #Variables Retained
+## 108                                                                              L2 Penalty
+## 109                                                                            #Fuzzy Terms
+## 110                                                                     Membership Function
+## 111                                                                            #Fuzzy Terms
+## 112                                                                     Membership Function
+## 113                                                                            #Fuzzy Terms
+## 114                                                                         Max. Iterations
+## 115                                                                       Feature Selection
+## 116                                                                                  Method
+## 117                                                                   # Boosting Iterations
+## 118                                                                              AIC Prune?
+## 119                                                                                    Span
+## 120                                                                                  Degree
+## 121                                                                      Degrees of Freedom
+## 122                                                                               Parameter
+## 123                                                                       Polynomial Degree
+## 124                                                                                   Scale
+## 125                                                                                   Sigma
+## 131                                                                   # Boosting Iterations
+## 132                                                                          Max Tree Depth
+## 133                                                                               Shrinkage
+## 134                                                                 Min. Terminal Node Size
+## 126                                                                   # Boosting Iterations
+## 127                                                                          Max Tree Depth
+## 128                                                                 Min. Terminal Node Size
+## 129                                                                               Shrinkage
+## 130                                                           #Randomly Selected Predictors
+## 135                                                                          Product Degree
+## 136                                                                        Max. Generations
+## 137                                                                         Max. Iterations
+## 138                                                                  Max. Tuning Iterations
+## 139                                                                         Population Size
+## 140                                                                          # Fuzzy Labels
+## 141                                                                        Max. Generations
+## 142                                                                         Population Size
+## 143                                                                          # Fuzzy Labels
+## 144                                                                        Max. Generations
+## 146                                                                               parameter
+## 145                                                                           Link Function
+## 147                                                                   # Boosting Iterations
+## 148                                                                              AIC Prune?
+## 151                                                                       Mixing Percentage
+## 152                                                                Regularization Parameter
+## 149                                                                       Mixing Percentage
+## 150                                                                Regularization Parameter
+## 153                                                                               parameter
+## 154                                                                             #Components
+## 155                                                                                   Gamma
+## 156                                                                                  Lambda
+## 157                                                Dimension of the Discriminative Subspace
+## 158                                                                               Threshold
+## 159                                                                              Model Type
+## 160                                                                                   Gamma
+## 161                                                                                  Lambda
+## 162                                                                          Shrinkage Type
+## 163                                                                            #Fuzzy Terms
+## 164                                                                         Max. Iterations
+## 165                                                                             #Components
+## 166                                                                    Confidence Threshold
+## 167                                                              Minimum Instances Per Leaf
+## 168                                                                         # Optimizations
+## 169                                                                                 # Folds
+## 170                                                                             Min Weights
+## 171                                                                             #Components
+## 172                                                                         Max. #Neighbors
+## 173                                                                                Distance
+## 174                                                                                  Kernel
+## 175                                                                              #Neighbors
+## 176                                                                Regularization Parameter
+## 177                                                                       Polynomial Degree
+## 178                                                                Regularization Parameter
+## 179                                                                                   Sigma
+## 180                                                                                Fraction
+## 181                                                                                  #Steps
+## 182                                                               Fraction of Full Solution
+## 183                                                                               parameter
+## 184                                                                 #Discriminant Functions
+## 185                                                            Maximum Number of Predictors
+## 186                                                            Maximum Number of Predictors
+## 187                                                            Maximum Number of Predictors
+## 188                                                                                    none
+## 189                                                                               intercept
+## 190                                                                               parameter
+## 191                                                                             # Iteratons
+## 192                                                                      #Nearest Neighbors
+## 193                                                                Maximum Number of Leaves
+## 194                                                                         Number of Trees
+## 195                                                                   # Boosting Iterations
+## 196                                                                Maximum Number of Leaves
+## 197                                                                         Number of Trees
+## 198                                                                Regularization Parameter
+## 199                                                                       Polynomial Degree
+## 200                                                                                   Scale
+## 201                                                                Regularization Parameter
+## 202                                                                                   Sigma
+## 203                                                                Regularization Parameter
+## 204                                                                           Codebook Size
+## 205                                                                             #Prototypes
+## 206                                                                                  Pruned
+## 207                                                                                Smoothed
+## 208                                                                                   Rules
+## 209                                                                                  Pruned
+## 210                                                                                Smoothed
+## 211                                                                     Smoothing Parameter
+## 212                                                                       Prior Probability
+## 213                                                                   #Subclasses Per Class
+## 214                                                                               parameter
+## 215                                                                           #Hidden Units
+## 216                                                                           #Hidden Units
+## 217                                                                       L2 Regularization
+## 218                                                                              Batch Size
+## 219                                                                           Learning Rate
+## 220                                                                                     Rho
+## 221                                                                     Learning Rate Decay
+## 222                                                                     Activation Function
+## 223                                                                           #Hidden Units
+## 224                                                                       L2 Regularization
+## 225                                                                              Batch Size
+## 226                                                                           Learning Rate
+## 227                                                                                     Rho
+## 228                                                                     Learning Rate Decay
+## 229                                                                                    Cost
+## 230                                                                     Activation Function
+## 231                                                                           #Hidden Units
+## 232                                                                            Dropout Rate
+## 233                                                                              Batch Size
+## 234                                                                           Learning Rate
+## 235                                                                                     Rho
+## 236                                                                     Learning Rate Decay
+## 237                                                                     Activation Function
+## 238                                                                           #Hidden Units
+## 239                                                                            Dropout Rate
+## 240                                                                              Batch Size
+## 241                                                                           Learning Rate
+## 242                                                                                     Rho
+## 243                                                                     Learning Rate Decay
+## 244                                                                                    Cost
+## 245                                                                     Activation Function
+## 246                                                                    #Hidden Units layer1
+## 247                                                                    #Hidden Units layer2
+## 248                                                                    #Hidden Units layer3
+## 249                                                                           #Hidden Units
+## 250                                                                       L2 Regularization
+## 251                                                                   RMSE Gradient Scaling
+## 252                                                                           Learning Rate
+## 253                                                                                Momentum
+## 254                                                                     Learning Rate Decay
+## 255                                                                              Batch Size
+## 256                                                                                 #Models
+## 257                                                                           #Hidden Units
+## 258                                                                            Weight Decay
+## 259                                                                    #Hidden Units layer1
+## 260                                                                    #Hidden Units layer2
+## 261                                                                    #Hidden Units layer3
+## 262                                                                            Weight Decay
+## 263                                                                           #Hidden Units
+## 264                                                                                 #Models
+## 265                                                                                   Alpha
+## 266                                                              #Adaptive Estimation Steps
+## 267                                                          Adaptive Weight Scaling Factor
+## 268                                                                            Weight Decay
+## 269                                                                #Hidden Units in Layer 1
+## 270                                                                #Hidden Units in Layer 2
+## 271                                                                #Hidden Units in Layer 3
+## 272                                                                           Learning Rate
+## 273                                                                                Momentum
+## 274                                                                            Dropout Rate
+## 275                                                                     Activation Function
+## 276                                                                #Hidden Units in Layer 1
+## 277                                                                #Hidden Units in Layer 2
+## 278                                                                #Hidden Units in Layer 3
+## 279                                                                            Dropout Rate
+## 280                                                                                   beta1
+## 281                                                                                   beta2
+## 282                                                                           Learning Rate
+## 283                                                                     Activation Function
+## 284                                                                      Laplace Correction
+## 285                                                                       Distribution Type
+## 286                                                                    Bandwidth Adjustment
+## 287                                                                      Laplace Correction
+## 288                                                                       Distribution Type
+## 289                                                                    Bandwidth Adjustment
+## 290                                                                     Smoothing Parameter
+## 291                                                                                  #Folds
+## 292                                                            Minimum Absolute Improvement
+## 293                                                                     Smoothing Parameter
+## 294                                                               Final Smoothing Parameter
+## 295                                                                        Search Direction
+## 296                                                                #Hidden Units in Layer 1
+## 297                                                                #Hidden Units in Layer 2
+## 298                                                                #Hidden Units in Layer 3
+## 299                                                                           #Hidden Units
+## 300                                                                            Weight Decay
+## 301                                                                               parameter
+## 302                                                               Maximum Interaction Depth
+## 303                                                                         Prediction Mode
+## 304                                                                               parameter
+## 305                                                                                    none
+## 306                                                                       Mixing Percentage
+## 307                                                                     Selection Criterion
+## 308                                                                           Link Function
+## 309                                           # score sets tried prior to the approximation
+## 310                                                                  # of trees (small RFs)
+## 311                                                                   # of trees (final RF)
+## 312                                                           #Randomly Selected Predictors
+## 313                                                           #Randomly Selected Predictors
+## 314                                                           #Randomly Selected Predictors
+## 315                                                           #Randomly Selected Predictors
+## 316                                                                              #Neighbors
+## 317                                                                     Shrinkage Threshold
+## 318                                                           #Randomly Selected Predictors
+## 319                                                                    Confidence Threshold
+## 320                                                                                 Pruning
+## 321                                                           Number of Terminal Partitions
+## 322                                                              Minimum Percent Difference
+## 323                                                                           #Hidden Units
+## 324                                                                            Weight Decay
+## 325                                                                             #Components
+## 326                                                           Shrinkage Penalty Coefficient
+## 327                                                                      Degrees of Freedom
+## 328                                                                              L1 Penalty
+## 329                                                                              L2 Penalty
+## 330                                                                              L1 Penalty
+## 331                                                                 #Discriminant Functions
+## 332                                                                              L2 Penalty
+## 333                                                                    Complexity Parameter
+## 334                                                                             #Components
+## 335                                                                         #PLS Components
+## 336                                                                       p-Value threshold
+## 337                                                                               parameter
+## 338                                                                                 # Terms
+## 339                                                                        peeling quantile
+## 340                                                                        pasting quantile
+## 341                                                                            minimum mass
+## 342                                                                               Ball Size
+## 343                                                                          Distance Order
+## 344                                                                               parameter
+## 345                                                                               parameter
+## 346                                                           #Randomly Selected Predictors
+## 347                                                                           #Hidden Units
+## 348                                                                            Weight Decay
+## 349                                                                          Bagged Models?
+## 350                                                                       Interaction Order
+## 351                                                           #Randomly Selected Predictors
+## 352                                                                          Splitting Rule
+## 353                                                                       Minimal Node Size
+## 354                                                                           #Hidden Units
+## 355                                                Activation Limit for Conflicting Classes
+## 356                                                           #Randomly Selected Predictors
+## 357                                                                       Minimal Node Size
+## 358                                                                                   Gamma
+## 359                                                                                  Lambda
+## 360                                                                                    Cost
+## 361                                                                           Loss Function
+## 362                                                                               Tolerance
+## 363                                                                       Penalty Parameter
+## 364                                                                    Relaxation Parameter
+## 365                                                           #Randomly Selected Predictors
+## 366                                                                              Fern Depth
+## 367                                                                               # Factors
+## 368                                                           #Randomly Selected Predictors
+## 369                                                                      Maximum Rule Depth
+## 370                                                                            Weight Decay
+## 371                                                                   Regularization Method
+## 372                                                                               intercept
+## 373                                                                                     psi
+## 374                                                                   #Subclasses Per Class
+## 375                                                                                   Model
+## 376                                                                     #Variables Retained
+## 377                                                                       #Variable Subsets
+## 378                                                                           Ensemble Size
+## 379                                                                       #Variable Subsets
+## 380                                                                           Ensemble Size
+## 381                                                                    Complexity Parameter
+## 382                                                                    Complexity Parameter
+## 383                                                                               parameter
+## 384                                                                          Max Tree Depth
+## 385                                                                    Complexity Parameter
+## 386                                                                                    Cost
+## 387                                                                    Complexity Parameter
+## 388                                                                          Split Function
+## 389                                                                         Pruning Measure
+## 390                                                                              L1 Penalty
+## 391                                                                              L1 Penalty
+## 392                                                                            Penalty Type
+## 393                                                           #Randomly Selected Predictors
+## 394                                                                    Regularization Value
+## 395                                                                  Importance Coefficient
+## 396                                                           #Randomly Selected Predictors
+## 397                                                                    Regularization Value
+## 398                                                                       Penalty Parameter
+## 399                                                                    Robustness Parameter
+## 400                                                                            Penalty Type
+## 401                                                                               parameter
+## 402                                                                               parameter
+## 403                                                                                   Scale
+## 404                                                                       Polynomial Degree
+## 405                                                                                   Sigma
+## 406                                                                                  Radius
+## 407                                                                         Upper Threshold
+## 408                                                                         Lower Threshold
+## 409                                                                             Diagonalize
+## 410                                                                               shrinkage
+## 411                                                                              L1 Penalty
+## 412                                                                              L2 Penalty
+## 413                                                                             #Components
+## 414                                                                            #Fuzzy Terms
+## 415                                                                         Max. Iterations
+## 416                                                                        Max. Generations
+## 417                                                                                    none
+## 418                                                                            # Predictors
+## 419                                                                                  Lambda
+## 420                                                                            # Subclasses
+## 421                                                                 Stabilization Parameter
+## 422                                                                            # Predictors
+## 423                                                                                  Lambda
+## 424                                                                      Variables Retained
+## 425                                                                             #Components
+## 426                                                                               Threshold
+## 427                                                                                   Kappa
+## 428                                                                      Maximum #Variables
+## 429                                                                        Search Direction
+## 430                                                                      Maximum #Variables
+## 431                                                                        Search Direction
+## 432                                                                               Threshold
+## 433                                                                             #Components
+## 434                                                                                  length
+## 435                                                                                    Cost
+## 436                                                                                  lambda
+## 437                                                                                    Cost
+## 438                                                                                    Cost
+## 439                                                                                    Cost
+## 440                                                                                    Cost
+## 441                                                                           Loss Function
+## 442                                                                                    Cost
+## 443                                                                            Class Weight
+## 444                                                                                    Cost
+## 445                                                                           Loss Function
+## 446                                                                            Class Weight
+## 447                                                                       Polynomial Degree
+## 448                                                                                   Scale
+## 449                                                                                    Cost
+## 450                                                                                   Sigma
+## 451                                                                                    Cost
+## 452                                                                                    Cost
+## 453                                                                                   Sigma
+## 454                                                                                    Cost
+## 455                                                                                   Sigma
+## 456                                                                                    Cost
+## 457                                                                                  Weight
+## 458                                                                                  length
+## 459                                                                                    Cost
+## 460                                                                          Score Function
+## 461                                                                     Smoothing Parameter
+## 462                                                                                  #Folds
+## 463                                                            Minimum Absolute Improvement
+## 464                                                                     Smoothing Parameter
+## 465                                                               Final Smoothing Parameter
+## 466                                                                            Super-Parent
+## 467                                                                               parameter
+## 468                                                                         Theta Estimated
+## 469                                                                         Parallel Curves
+## 470                                                                           Link Function
+## 471                                                                         Parallel Curves
+## 472                                                                           Link Function
+## 473                                                                         Parallel Curves
+## 474                                                                           Link Function
+## 475                                                                             #Components
+## 476                                                                            #Fuzzy Terms
+## 477                                                                     Membership Function
+## 478                                                           #Randomly Selected Predictors
+## 479                                                                   # Boosting Iterations
+## 480                                                                          Max Tree Depth
+## 481                                                                               Shrinkage
+## 482                                                                  Minimum Loss Reduction
+## 483                                                                    Subsample Percentage
+## 484                                                              Subsample Ratio of Columns
+## 485                                                               Fraction of Trees Dropped
+## 486                                                              Prob. of Skipping Drop-out
+## 487                                                          Minimum Sum of Instance Weight
+## 488                                                                   # Boosting Iterations
+## 489                                                                       L2 Regularization
+## 490                                                                       L1 Regularization
+## 491                                                                           Learning Rate
+## 492                                                                   # Boosting Iterations
+## 493                                                                          Max Tree Depth
+## 494                                                                               Shrinkage
+## 495                                                                  Minimum Loss Reduction
+## 496                                                              Subsample Ratio of Columns
+## 497                                                          Minimum Sum of Instance Weight
+## 498                                                                    Subsample Percentage
+## 499                                                                                    Rows
+## 500                                                                                 Columns
+## 501                                                                            Layer Weight
+## 502                                                                                Topology
+##     forReg forClass probModel
+## 1    FALSE     TRUE      TRUE
+## 2    FALSE     TRUE      TRUE
+## 3    FALSE     TRUE      TRUE
+## 4    FALSE     TRUE      TRUE
+## 5    FALSE     TRUE      TRUE
+## 9    FALSE     TRUE      TRUE
+## 10   FALSE     TRUE      TRUE
+## 6    FALSE     TRUE      TRUE
+## 7    FALSE     TRUE      TRUE
+## 8    FALSE     TRUE      TRUE
+## 11   FALSE     TRUE      TRUE
+## 12    TRUE    FALSE     FALSE
+## 13    TRUE    FALSE     FALSE
+## 14    TRUE     TRUE      TRUE
+## 15    TRUE     TRUE      TRUE
+## 16    TRUE     TRUE      TRUE
+## 17   FALSE     TRUE      TRUE
+## 18   FALSE     TRUE      TRUE
+## 19   FALSE     TRUE      TRUE
+## 20    TRUE     TRUE      TRUE
+## 21    TRUE     TRUE      TRUE
+## 22    TRUE     TRUE      TRUE
+## 23    TRUE     TRUE      TRUE
+## 24   FALSE     TRUE      TRUE
+## 25   FALSE     TRUE      TRUE
+## 26   FALSE     TRUE      TRUE
+## 27    TRUE     TRUE      TRUE
+## 28    TRUE     TRUE      TRUE
+## 29    TRUE     TRUE      TRUE
+## 30    TRUE     TRUE      TRUE
+## 31    TRUE     TRUE      TRUE
+## 32    TRUE     TRUE      TRUE
+## 33    TRUE     TRUE      TRUE
+## 34    TRUE     TRUE      TRUE
+## 35   FALSE     TRUE      TRUE
+## 36    TRUE     TRUE      TRUE
+## 37    TRUE     TRUE      TRUE
+## 38    TRUE    FALSE     FALSE
+## 39    TRUE    FALSE     FALSE
+## 40    TRUE    FALSE     FALSE
+## 41    TRUE    FALSE     FALSE
+## 42    TRUE     TRUE     FALSE
+## 43    TRUE     TRUE     FALSE
+## 44    TRUE     TRUE     FALSE
+## 45    TRUE     TRUE     FALSE
+## 46    TRUE     TRUE     FALSE
+## 47    TRUE     TRUE     FALSE
+## 48    TRUE     TRUE     FALSE
+## 49   FALSE     TRUE      TRUE
+## 50   FALSE     TRUE      TRUE
+## 51   FALSE     TRUE      TRUE
+## 52   FALSE     TRUE     FALSE
+## 53   FALSE     TRUE     FALSE
+## 54   FALSE     TRUE     FALSE
+## 55   FALSE     TRUE     FALSE
+## 56   FALSE     TRUE      TRUE
+## 57   FALSE     TRUE      TRUE
+## 58    TRUE     TRUE      TRUE
+## 59   FALSE     TRUE      TRUE
+## 60   FALSE     TRUE      TRUE
+## 61   FALSE     TRUE      TRUE
+## 62   FALSE     TRUE     FALSE
+## 63    TRUE     TRUE      TRUE
+## 64    TRUE     TRUE      TRUE
+## 65    TRUE     TRUE      TRUE
+## 66    TRUE    FALSE     FALSE
+## 67    TRUE    FALSE     FALSE
+## 68   FALSE     TRUE      TRUE
+## 69   FALSE     TRUE      TRUE
+## 70   FALSE     TRUE     FALSE
+## 71   FALSE     TRUE     FALSE
+## 72   FALSE     TRUE     FALSE
+## 73   FALSE     TRUE     FALSE
+## 74   FALSE     TRUE     FALSE
+## 75    TRUE    FALSE     FALSE
+## 76    TRUE    FALSE     FALSE
+## 77    TRUE     TRUE      TRUE
+## 78    TRUE     TRUE      TRUE
+## 79    TRUE     TRUE      TRUE
+## 80    TRUE     TRUE      TRUE
+## 81    TRUE     TRUE      TRUE
+## 82   FALSE     TRUE      TRUE
+## 83   FALSE     TRUE      TRUE
+## 84   FALSE     TRUE      TRUE
+## 85   FALSE     TRUE      TRUE
+## 86   FALSE     TRUE      TRUE
+## 87   FALSE     TRUE      TRUE
+## 88   FALSE     TRUE      TRUE
+## 89   FALSE     TRUE      TRUE
+## 90   FALSE     TRUE      TRUE
+## 91    TRUE     TRUE      TRUE
+## 92    TRUE     TRUE      TRUE
+## 93    TRUE     TRUE     FALSE
+## 94    TRUE     TRUE     FALSE
+## 95    TRUE    FALSE     FALSE
+## 96    TRUE    FALSE     FALSE
+## 97    TRUE     TRUE      TRUE
+## 98    TRUE     TRUE      TRUE
+## 99    TRUE     TRUE      TRUE
+## 100  FALSE     TRUE      TRUE
+## 101  FALSE     TRUE      TRUE
+## 102  FALSE     TRUE     FALSE
+## 103  FALSE     TRUE     FALSE
+## 104  FALSE     TRUE     FALSE
+## 105   TRUE    FALSE     FALSE
+## 106   TRUE    FALSE     FALSE
+## 107   TRUE    FALSE     FALSE
+## 108   TRUE    FALSE     FALSE
+## 109  FALSE     TRUE     FALSE
+## 110  FALSE     TRUE     FALSE
+## 111  FALSE     TRUE     FALSE
+## 112  FALSE     TRUE     FALSE
+## 113   TRUE    FALSE     FALSE
+## 114   TRUE    FALSE     FALSE
+## 115   TRUE     TRUE      TRUE
+## 116   TRUE     TRUE      TRUE
+## 117   TRUE     TRUE      TRUE
+## 118   TRUE     TRUE      TRUE
+## 119   TRUE     TRUE      TRUE
+## 120   TRUE     TRUE      TRUE
+## 121   TRUE     TRUE      TRUE
+## 122   TRUE     TRUE      TRUE
+## 123   TRUE     TRUE      TRUE
+## 124   TRUE     TRUE      TRUE
+## 125   TRUE     TRUE      TRUE
+## 131   TRUE     TRUE      TRUE
+## 132   TRUE     TRUE      TRUE
+## 133   TRUE     TRUE      TRUE
+## 134   TRUE     TRUE      TRUE
+## 126   TRUE     TRUE      TRUE
+## 127   TRUE     TRUE      TRUE
+## 128   TRUE     TRUE      TRUE
+## 129   TRUE     TRUE      TRUE
+## 130   TRUE     TRUE      TRUE
+## 135   TRUE     TRUE      TRUE
+## 136   TRUE    FALSE     FALSE
+## 137   TRUE    FALSE     FALSE
+## 138   TRUE    FALSE     FALSE
+## 139   TRUE    FALSE     FALSE
+## 140   TRUE    FALSE     FALSE
+## 141   TRUE    FALSE     FALSE
+## 142   TRUE    FALSE     FALSE
+## 143   TRUE    FALSE     FALSE
+## 144   TRUE    FALSE     FALSE
+## 146   TRUE     TRUE      TRUE
+## 145   TRUE    FALSE     FALSE
+## 147   TRUE     TRUE      TRUE
+## 148   TRUE     TRUE      TRUE
+## 151   TRUE     TRUE      TRUE
+## 152   TRUE     TRUE      TRUE
+## 149   TRUE     TRUE      TRUE
+## 150   TRUE     TRUE      TRUE
+## 153   TRUE     TRUE      TRUE
+## 154  FALSE     TRUE      TRUE
+## 155  FALSE     TRUE      TRUE
+## 156  FALSE     TRUE      TRUE
+## 157  FALSE     TRUE      TRUE
+## 158  FALSE     TRUE      TRUE
+## 159  FALSE     TRUE      TRUE
+## 160  FALSE     TRUE      TRUE
+## 161  FALSE     TRUE      TRUE
+## 162  FALSE     TRUE      TRUE
+## 163   TRUE    FALSE     FALSE
+## 164   TRUE    FALSE     FALSE
+## 165   TRUE    FALSE     FALSE
+## 166  FALSE     TRUE      TRUE
+## 167  FALSE     TRUE      TRUE
+## 168  FALSE     TRUE      TRUE
+## 169  FALSE     TRUE      TRUE
+## 170  FALSE     TRUE      TRUE
+## 171   TRUE     TRUE      TRUE
+## 172   TRUE     TRUE      TRUE
+## 173   TRUE     TRUE      TRUE
+## 174   TRUE     TRUE      TRUE
+## 175   TRUE     TRUE      TRUE
+## 176   TRUE    FALSE     FALSE
+## 177   TRUE    FALSE     FALSE
+## 178   TRUE    FALSE     FALSE
+## 179   TRUE    FALSE     FALSE
+## 180   TRUE    FALSE     FALSE
+## 181   TRUE    FALSE     FALSE
+## 182   TRUE    FALSE     FALSE
+## 183  FALSE     TRUE      TRUE
+## 184  FALSE     TRUE      TRUE
+## 185   TRUE    FALSE     FALSE
+## 186   TRUE    FALSE     FALSE
+## 187   TRUE    FALSE     FALSE
+## 188  FALSE     TRUE      TRUE
+## 189   TRUE    FALSE     FALSE
+## 190   TRUE    FALSE     FALSE
+## 191  FALSE     TRUE      TRUE
+## 192  FALSE     TRUE      TRUE
+## 193   TRUE     TRUE      TRUE
+## 194   TRUE     TRUE      TRUE
+## 195  FALSE     TRUE      TRUE
+## 196   TRUE     TRUE      TRUE
+## 197   TRUE     TRUE      TRUE
+## 198  FALSE     TRUE     FALSE
+## 199  FALSE     TRUE     FALSE
+## 200  FALSE     TRUE     FALSE
+## 201  FALSE     TRUE     FALSE
+## 202  FALSE     TRUE     FALSE
+## 203  FALSE     TRUE     FALSE
+## 204  FALSE     TRUE     FALSE
+## 205  FALSE     TRUE     FALSE
+## 206   TRUE    FALSE     FALSE
+## 207   TRUE    FALSE     FALSE
+## 208   TRUE    FALSE     FALSE
+## 209   TRUE    FALSE     FALSE
+## 210   TRUE    FALSE     FALSE
+## 211  FALSE     TRUE      TRUE
+## 212  FALSE     TRUE      TRUE
+## 213  FALSE     TRUE      TRUE
+## 214  FALSE     TRUE     FALSE
+## 215   TRUE     TRUE      TRUE
+## 216   TRUE     TRUE      TRUE
+## 217   TRUE     TRUE      TRUE
+## 218   TRUE     TRUE      TRUE
+## 219   TRUE     TRUE      TRUE
+## 220   TRUE     TRUE      TRUE
+## 221   TRUE     TRUE      TRUE
+## 222   TRUE     TRUE      TRUE
+## 223  FALSE     TRUE      TRUE
+## 224  FALSE     TRUE      TRUE
+## 225  FALSE     TRUE      TRUE
+## 226  FALSE     TRUE      TRUE
+## 227  FALSE     TRUE      TRUE
+## 228  FALSE     TRUE      TRUE
+## 229  FALSE     TRUE      TRUE
+## 230  FALSE     TRUE      TRUE
+## 231   TRUE     TRUE      TRUE
+## 232   TRUE     TRUE      TRUE
+## 233   TRUE     TRUE      TRUE
+## 234   TRUE     TRUE      TRUE
+## 235   TRUE     TRUE      TRUE
+## 236   TRUE     TRUE      TRUE
+## 237   TRUE     TRUE      TRUE
+## 238  FALSE     TRUE      TRUE
+## 239  FALSE     TRUE      TRUE
+## 240  FALSE     TRUE      TRUE
+## 241  FALSE     TRUE      TRUE
+## 242  FALSE     TRUE      TRUE
+## 243  FALSE     TRUE      TRUE
+## 244  FALSE     TRUE      TRUE
+## 245  FALSE     TRUE      TRUE
+## 246   TRUE     TRUE      TRUE
+## 247   TRUE     TRUE      TRUE
+## 248   TRUE     TRUE      TRUE
+## 249   TRUE     TRUE      TRUE
+## 250   TRUE     TRUE      TRUE
+## 251   TRUE     TRUE      TRUE
+## 252   TRUE     TRUE      TRUE
+## 253   TRUE     TRUE      TRUE
+## 254   TRUE     TRUE      TRUE
+## 255   TRUE     TRUE      TRUE
+## 256   TRUE     TRUE      TRUE
+## 257   TRUE     TRUE      TRUE
+## 258   TRUE     TRUE      TRUE
+## 259   TRUE     TRUE      TRUE
+## 260   TRUE     TRUE      TRUE
+## 261   TRUE     TRUE      TRUE
+## 262   TRUE     TRUE      TRUE
+## 263   TRUE     TRUE      TRUE
+## 264   TRUE     TRUE      TRUE
+## 265   TRUE     TRUE      TRUE
+## 266   TRUE     TRUE      TRUE
+## 267   TRUE     TRUE      TRUE
+## 268  FALSE     TRUE      TRUE
+## 269   TRUE     TRUE      TRUE
+## 270   TRUE     TRUE      TRUE
+## 271   TRUE     TRUE      TRUE
+## 272   TRUE     TRUE      TRUE
+## 273   TRUE     TRUE      TRUE
+## 274   TRUE     TRUE      TRUE
+## 275   TRUE     TRUE      TRUE
+## 276   TRUE     TRUE      TRUE
+## 277   TRUE     TRUE      TRUE
+## 278   TRUE     TRUE      TRUE
+## 279   TRUE     TRUE      TRUE
+## 280   TRUE     TRUE      TRUE
+## 281   TRUE     TRUE      TRUE
+## 282   TRUE     TRUE      TRUE
+## 283   TRUE     TRUE      TRUE
+## 284  FALSE     TRUE      TRUE
+## 285  FALSE     TRUE      TRUE
+## 286  FALSE     TRUE      TRUE
+## 287  FALSE     TRUE      TRUE
+## 288  FALSE     TRUE      TRUE
+## 289  FALSE     TRUE      TRUE
+## 290  FALSE     TRUE      TRUE
+## 291  FALSE     TRUE      TRUE
+## 292  FALSE     TRUE      TRUE
+## 293  FALSE     TRUE      TRUE
+## 294  FALSE     TRUE      TRUE
+## 295  FALSE     TRUE      TRUE
+## 296   TRUE    FALSE     FALSE
+## 297   TRUE    FALSE     FALSE
+## 298   TRUE    FALSE     FALSE
+## 299   TRUE     TRUE      TRUE
+## 300   TRUE     TRUE      TRUE
+## 301   TRUE    FALSE     FALSE
+## 302   TRUE     TRUE      TRUE
+## 303   TRUE     TRUE      TRUE
+## 304   TRUE     TRUE      TRUE
+## 305  FALSE     TRUE      TRUE
+## 306  FALSE     TRUE      TRUE
+## 307  FALSE     TRUE      TRUE
+## 308  FALSE     TRUE      TRUE
+## 309  FALSE     TRUE      TRUE
+## 310  FALSE     TRUE      TRUE
+## 311  FALSE     TRUE      TRUE
+## 312  FALSE     TRUE      TRUE
+## 313  FALSE     TRUE      TRUE
+## 314  FALSE     TRUE      TRUE
+## 315  FALSE     TRUE      TRUE
+## 316  FALSE     TRUE     FALSE
+## 317  FALSE     TRUE      TRUE
+## 318   TRUE     TRUE      TRUE
+## 319  FALSE     TRUE      TRUE
+## 320  FALSE     TRUE      TRUE
+## 321   TRUE     TRUE     FALSE
+## 322   TRUE     TRUE     FALSE
+## 323   TRUE     TRUE      TRUE
+## 324   TRUE     TRUE      TRUE
+## 325   TRUE    FALSE     FALSE
+## 326  FALSE     TRUE      TRUE
+## 327  FALSE     TRUE      TRUE
+## 328   TRUE    FALSE     FALSE
+## 329   TRUE    FALSE     FALSE
+## 330  FALSE     TRUE     FALSE
+## 331  FALSE     TRUE     FALSE
+## 332  FALSE     TRUE      TRUE
+## 333  FALSE     TRUE      TRUE
+## 334   TRUE     TRUE      TRUE
+## 335   TRUE     TRUE      TRUE
+## 336   TRUE     TRUE      TRUE
+## 337  FALSE     TRUE      TRUE
+## 338   TRUE    FALSE     FALSE
+## 339  FALSE     TRUE      TRUE
+## 340  FALSE     TRUE      TRUE
+## 341  FALSE     TRUE      TRUE
+## 342  FALSE     TRUE     FALSE
+## 343  FALSE     TRUE     FALSE
+## 344  FALSE     TRUE      TRUE
+## 345  FALSE     TRUE      TRUE
+## 346   TRUE    FALSE     FALSE
+## 347   TRUE    FALSE     FALSE
+## 348   TRUE    FALSE     FALSE
+## 349   TRUE    FALSE     FALSE
+## 350   TRUE     TRUE      TRUE
+## 351   TRUE     TRUE      TRUE
+## 352   TRUE     TRUE      TRUE
+## 353   TRUE     TRUE      TRUE
+## 354   TRUE     TRUE      TRUE
+## 355   TRUE     TRUE      TRUE
+## 356   TRUE     TRUE      TRUE
+## 357   TRUE     TRUE      TRUE
+## 358  FALSE     TRUE      TRUE
+## 359  FALSE     TRUE      TRUE
+## 360  FALSE     TRUE      TRUE
+## 361  FALSE     TRUE      TRUE
+## 362  FALSE     TRUE      TRUE
+## 363   TRUE    FALSE     FALSE
+## 364   TRUE    FALSE     FALSE
+## 365   TRUE     TRUE      TRUE
+## 366  FALSE     TRUE     FALSE
+## 367  FALSE     TRUE     FALSE
+## 368   TRUE     TRUE     FALSE
+## 369   TRUE     TRUE     FALSE
+## 370   TRUE    FALSE     FALSE
+## 371  FALSE     TRUE      TRUE
+## 372   TRUE    FALSE     FALSE
+## 373   TRUE    FALSE     FALSE
+## 374  FALSE     TRUE      TRUE
+## 375  FALSE     TRUE      TRUE
+## 376  FALSE     TRUE     FALSE
+## 377  FALSE     TRUE      TRUE
+## 378  FALSE     TRUE      TRUE
+## 379  FALSE     TRUE      TRUE
+## 380  FALSE     TRUE      TRUE
+## 381  FALSE     TRUE      TRUE
+## 382   TRUE     TRUE      TRUE
+## 383   TRUE     TRUE      TRUE
+## 384   TRUE     TRUE      TRUE
+## 385  FALSE     TRUE     FALSE
+## 386  FALSE     TRUE     FALSE
+## 387  FALSE     TRUE     FALSE
+## 388  FALSE     TRUE     FALSE
+## 389  FALSE     TRUE     FALSE
+## 390   TRUE    FALSE     FALSE
+## 391   TRUE    FALSE     FALSE
+## 392   TRUE    FALSE     FALSE
+## 393   TRUE     TRUE      TRUE
+## 394   TRUE     TRUE      TRUE
+## 395   TRUE     TRUE      TRUE
+## 396   TRUE     TRUE      TRUE
+## 397   TRUE     TRUE      TRUE
+## 398  FALSE     TRUE      TRUE
+## 399  FALSE     TRUE      TRUE
+## 400  FALSE     TRUE      TRUE
+## 401  FALSE     TRUE     FALSE
+## 402   TRUE    FALSE     FALSE
+## 403   TRUE    FALSE     FALSE
+## 404   TRUE    FALSE     FALSE
+## 405   TRUE    FALSE     FALSE
+## 406   TRUE    FALSE     FALSE
+## 407   TRUE    FALSE     FALSE
+## 408   TRUE    FALSE     FALSE
+## 409  FALSE     TRUE      TRUE
+## 410  FALSE     TRUE      TRUE
+## 411  FALSE     TRUE      TRUE
+## 412  FALSE     TRUE      TRUE
+## 413   TRUE     TRUE      TRUE
+## 414  FALSE     TRUE     FALSE
+## 415  FALSE     TRUE     FALSE
+## 416  FALSE     TRUE     FALSE
+## 417  FALSE     TRUE      TRUE
+## 418  FALSE     TRUE     FALSE
+## 419  FALSE     TRUE     FALSE
+## 420  FALSE     TRUE     FALSE
+## 421  FALSE     TRUE     FALSE
+## 422  FALSE     TRUE      TRUE
+## 423  FALSE     TRUE      TRUE
+## 424   TRUE    FALSE     FALSE
+## 425   TRUE     TRUE      TRUE
+## 426   TRUE     TRUE      TRUE
+## 427   TRUE     TRUE      TRUE
+## 428  FALSE     TRUE      TRUE
+## 429  FALSE     TRUE      TRUE
+## 430  FALSE     TRUE      TRUE
+## 431  FALSE     TRUE      TRUE
+## 432   TRUE    FALSE     FALSE
+## 433   TRUE    FALSE     FALSE
+## 434   TRUE     TRUE      TRUE
+## 435   TRUE     TRUE      TRUE
+## 436   TRUE     TRUE      TRUE
+## 437   TRUE     TRUE      TRUE
+## 438   TRUE     TRUE      TRUE
+## 439   TRUE     TRUE      TRUE
+## 440   TRUE     TRUE     FALSE
+## 441   TRUE     TRUE     FALSE
+## 442  FALSE     TRUE      TRUE
+## 443  FALSE     TRUE      TRUE
+## 444  FALSE     TRUE     FALSE
+## 445  FALSE     TRUE     FALSE
+## 446  FALSE     TRUE     FALSE
+## 447   TRUE     TRUE      TRUE
+## 448   TRUE     TRUE      TRUE
+## 449   TRUE     TRUE      TRUE
+## 450   TRUE     TRUE      TRUE
+## 451   TRUE     TRUE      TRUE
+## 452   TRUE     TRUE      TRUE
+## 453   TRUE     TRUE      TRUE
+## 454   TRUE     TRUE      TRUE
+## 455  FALSE     TRUE      TRUE
+## 456  FALSE     TRUE      TRUE
+## 457  FALSE     TRUE      TRUE
+## 458   TRUE     TRUE      TRUE
+## 459   TRUE     TRUE      TRUE
+## 460  FALSE     TRUE      TRUE
+## 461  FALSE     TRUE      TRUE
+## 462  FALSE     TRUE      TRUE
+## 463  FALSE     TRUE      TRUE
+## 464  FALSE     TRUE      TRUE
+## 465  FALSE     TRUE      TRUE
+## 466  FALSE     TRUE      TRUE
+## 467   TRUE     TRUE      TRUE
+## 468  FALSE     TRUE      TRUE
+## 469  FALSE     TRUE      TRUE
+## 470  FALSE     TRUE      TRUE
+## 471  FALSE     TRUE      TRUE
+## 472  FALSE     TRUE      TRUE
+## 473  FALSE     TRUE      TRUE
+## 474  FALSE     TRUE      TRUE
+## 475   TRUE     TRUE      TRUE
+## 476   TRUE    FALSE     FALSE
+## 477   TRUE    FALSE     FALSE
+## 478  FALSE     TRUE      TRUE
+## 479   TRUE     TRUE      TRUE
+## 480   TRUE     TRUE      TRUE
+## 481   TRUE     TRUE      TRUE
+## 482   TRUE     TRUE      TRUE
+## 483   TRUE     TRUE      TRUE
+## 484   TRUE     TRUE      TRUE
+## 485   TRUE     TRUE      TRUE
+## 486   TRUE     TRUE      TRUE
+## 487   TRUE     TRUE      TRUE
+## 488   TRUE     TRUE      TRUE
+## 489   TRUE     TRUE      TRUE
+## 490   TRUE     TRUE      TRUE
+## 491   TRUE     TRUE      TRUE
+## 492   TRUE     TRUE      TRUE
+## 493   TRUE     TRUE      TRUE
+## 494   TRUE     TRUE      TRUE
+## 495   TRUE     TRUE      TRUE
+## 496   TRUE     TRUE      TRUE
+## 497   TRUE     TRUE      TRUE
+## 498   TRUE     TRUE      TRUE
+## 499   TRUE     TRUE      TRUE
+## 500   TRUE     TRUE      TRUE
+## 501   TRUE     TRUE      TRUE
+## 502   TRUE     TRUE      TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{trainIndex }\OtherTok{\textless{}{-}} \FunctionTok{createDataPartition}\NormalTok{(dfR}\SpecialCharTok{$}\NormalTok{BRAIN\_VOLUME, }
+                                  \AttributeTok{p =}\NormalTok{ .}\DecValTok{8}\NormalTok{, }
+                                  \AttributeTok{list =} \ConstantTok{FALSE}\NormalTok{, }
+                                  \AttributeTok{times =} \DecValTok{1}\NormalTok{)}
+
+\NormalTok{b\_train }\OtherTok{\textless{}{-}}\NormalTok{ dfR[trainIndex, ]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: The `i` argument of ``[`()` can't be a matrix as of tibble 3.0.0.
+## Convert to a vector.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_warnings()` to see where this warning was generated.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{b\_test  }\OtherTok{\textless{}{-}}\NormalTok{ dfR[}\SpecialCharTok{{-}}\NormalTok{trainIndex, ]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fitControl }\OtherTok{\textless{}{-}} \FunctionTok{trainControl}\NormalTok{(}\AttributeTok{method =} \StringTok{"repeatedcv"}\NormalTok{,}
+                           \AttributeTok{number =} \DecValTok{10}\NormalTok{,}
+                           \AttributeTok{repeats =} \DecValTok{1}\NormalTok{)}
+
+\CommentTok{\# Y esta función entrena el método}
+\NormalTok{caret\_lm\_model }\OtherTok{\textless{}{-}} \FunctionTok{train}\NormalTok{(BRAIN\_VOLUME }\SpecialCharTok{\textasciitilde{}}\NormalTok{ ., }
+                        \AttributeTok{data =}\NormalTok{ b\_train, }
+                        \AttributeTok{method =} \StringTok{"lm"}\NormalTok{,}
+                        \AttributeTok{trControl =}\NormalTok{ fitControl)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{caret\_lm\_model}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Linear Regression 
+## 
+## 210 samples
+##   2 predictor
+## 
+## No pre-processing
+## Resampling: Cross-Validated (10 fold, repeated 1 times) 
+## Summary of sample sizes: 190, 188, 189, 189, 188, 190, ... 
+## Resampling results:
+## 
+##   RMSE      Rsquared   MAE     
+##   109.7582  0.4764145  84.86985
+## 
+## Tuning parameter 'intercept' was held constant at a value of TRUE
+\end{verbatim}
+
+Podemos observar que se ha conseguido un MSE = 11224.32.
+
+Comparación entre modelos.
+
+Con esto, somos capaces de seleccionar el mejor de los métodos (el que
+minimice el error cometido):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#install.packages("kableExtra", dependencies = TRUE)}
+
+\CommentTok{\# Recorremos todos los métodos y tomamos el RMSE de cada uno}
+\NormalTok{best\_rmse }\OtherTok{\textless{}{-}} \FunctionTok{sapply}\NormalTok{(caret\_results, }\ControlFlowTok{function}\NormalTok{(i) }\FunctionTok{min}\NormalTok{(i}\SpecialCharTok{$}\NormalTok{results}\SpecialCharTok{$}\NormalTok{RMSE, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{))}
+
+\CommentTok{\# El mejor será el que tenga un RMSE más bajo}
+\NormalTok{best\_regressor }\OtherTok{\textless{}{-}} \FunctionTok{names}\NormalTok{(best\_rmse)[}\FunctionTok{which.min}\NormalTok{(best\_rmse)]}
+
+\CommentTok{\# Los mostramos en forma de tabla}
+\NormalTok{w }\OtherTok{\textless{}{-}}\NormalTok{ best\_rmse }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{as.data.frame}\NormalTok{()}
+
+\FunctionTok{colnames}\NormalTok{(w) }\OtherTok{\textless{}{-}} \StringTok{"RMSE"}
+
+\NormalTok{w }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{  knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(}\AttributeTok{format =} \StringTok{"html"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ kableExtra}\SpecialCharTok{::}\FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{font\_size =} \DecValTok{14}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+RMSE
+
+knn
+
+124.0474
+
+gbm
+
+110.8667
+
+lm
+
+110.2659
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"El metodo que minimiza la medida del error:"}\NormalTok{,best\_regressor)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## El metodo que minimiza la medida del error: lm
+\end{verbatim}
+
+Visualización de resultados.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(caret\_results}\SpecialCharTok{$}\NormalTok{gbm)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ProyectoContrastesRegresion_files/figure-latex/unnamed-chunk-34-1.pdf}
+
+Vamos a repetir los 2 pasos previos para encontrar modelos que estimen
+la variable GM\_VOLUME (volumen de sustancia gris) y modelos para
+estimar WM\_VOLUME (volumen de sustancia blanca) a partir de la edad y
+del sexo.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dfRG}\OtherTok{=}\NormalTok{ df2 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(SEX,AGE,GM\_VOLUME)}
+
+\NormalTok{dfRW}\OtherTok{=}\NormalTok{ df2 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(SEX,AGE,WM\_VOLUME)}
+\end{Highlighting}
+\end{Shaded}
+
+Modelo de regresion simple y polinomico (volumen de sustancia gris).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modelo\_1G }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(GM\_VOLUME }\SpecialCharTok{\textasciitilde{}}\NormalTok{ AGE, }\AttributeTok{data =}\NormalTok{ dfRG)}
+\NormalTok{modelo\_2G }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(GM\_VOLUME }\SpecialCharTok{\textasciitilde{}} \FunctionTok{poly}\NormalTok{(AGE, }\DecValTok{2}\NormalTok{), }\AttributeTok{data =}\NormalTok{ dfRG)}
+\NormalTok{modelo\_3G }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(GM\_VOLUME }\SpecialCharTok{\textasciitilde{}} \FunctionTok{poly}\NormalTok{(AGE, }\DecValTok{3}\NormalTok{), }\AttributeTok{data =}\NormalTok{ dfRG)}
+\NormalTok{modelo\_4G }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(GM\_VOLUME }\SpecialCharTok{\textasciitilde{}} \FunctionTok{poly}\NormalTok{(AGE, }\DecValTok{4}\NormalTok{), }\AttributeTok{data =}\NormalTok{ dfRG)}
+\NormalTok{modelo\_5G }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(GM\_VOLUME }\SpecialCharTok{\textasciitilde{}} \FunctionTok{poly}\NormalTok{(AGE, }\DecValTok{5}\NormalTok{), }\AttributeTok{data =}\NormalTok{ dfRG)}
+
+\FunctionTok{anova}\NormalTok{(modelo\_1G, modelo\_2G, modelo\_3G, modelo\_4G, modelo\_5G)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Analysis of Variance Table
+## 
+## Model 1: GM_VOLUME ~ AGE
+## Model 2: GM_VOLUME ~ poly(AGE, 2)
+## Model 3: GM_VOLUME ~ poly(AGE, 3)
+## Model 4: GM_VOLUME ~ poly(AGE, 4)
+## Model 5: GM_VOLUME ~ poly(AGE, 5)
+##   Res.Df     RSS Df Sum of Sq       F   Pr(>F)   
+## 1    260 1111728                                 
+## 2    259 1068505  1     43223 10.5477 0.001319 **
+## 3    258 1068369  1       136  0.0331 0.855815   
+## 4    257 1049153  1     19216  4.6894 0.031273 * 
+## 5    256 1049043  1       110  0.0268 0.870076   
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{f1G}\OtherTok{=} \FunctionTok{lm}\NormalTok{(dfRG}\SpecialCharTok{$}\NormalTok{GM\_VOLUME }\SpecialCharTok{\textasciitilde{}}\NormalTok{ dfRG}\SpecialCharTok{$}\NormalTok{AGE }\SpecialCharTok{+}\NormalTok{ dfRG}\SpecialCharTok{$}\NormalTok{SEX)}
+\NormalTok{f2G}\OtherTok{=} \FunctionTok{lm}\NormalTok{(dfRG}\SpecialCharTok{$}\NormalTok{GM\_VOLUME }\SpecialCharTok{\textasciitilde{}}\NormalTok{ dfRG}\SpecialCharTok{$}\NormalTok{AGE }\SpecialCharTok{+}\NormalTok{ dfRG}\SpecialCharTok{$}\NormalTok{SEX }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(dfRG}\SpecialCharTok{$}\NormalTok{AGE}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{))}
+\NormalTok{f3G}\OtherTok{=} \FunctionTok{lm}\NormalTok{(dfRG}\SpecialCharTok{$}\NormalTok{GM\_VOLUME }\SpecialCharTok{\textasciitilde{}}\NormalTok{ dfRG}\SpecialCharTok{$}\NormalTok{AGE }\SpecialCharTok{+}\NormalTok{ dfRG}\SpecialCharTok{$}\NormalTok{SEX }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(dfRG}\SpecialCharTok{$}\NormalTok{AGE}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(dfRG}\SpecialCharTok{$}\NormalTok{AGE}\SpecialCharTok{\^{}}\DecValTok{3}\NormalTok{))}
+\NormalTok{f4G}\OtherTok{=} \FunctionTok{lm}\NormalTok{(dfRG}\SpecialCharTok{$}\NormalTok{GM\_VOLUME }\SpecialCharTok{\textasciitilde{}}\NormalTok{ dfRG}\SpecialCharTok{$}\NormalTok{AGE }\SpecialCharTok{+}\NormalTok{ dfRG}\SpecialCharTok{$}\NormalTok{SEX }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(dfRG}\SpecialCharTok{$}\NormalTok{AGE}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(dfRG}\SpecialCharTok{$}\NormalTok{AGE}\SpecialCharTok{\^{}}\DecValTok{3}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(dfRG}\SpecialCharTok{$}\NormalTok{AGE}\SpecialCharTok{\^{}}\DecValTok{4}\NormalTok{))}
+\NormalTok{f5G}\OtherTok{=} \FunctionTok{lm}\NormalTok{(dfRG}\SpecialCharTok{$}\NormalTok{GM\_VOLUME }\SpecialCharTok{\textasciitilde{}}\NormalTok{ dfRG}\SpecialCharTok{$}\NormalTok{AGE }\SpecialCharTok{+}\NormalTok{ dfRG}\SpecialCharTok{$}\NormalTok{SEX }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(dfRG}\SpecialCharTok{$}\NormalTok{AGE}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(dfRG}\SpecialCharTok{$}\NormalTok{AGE}\SpecialCharTok{\^{}}\DecValTok{3}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(dfRG}\SpecialCharTok{$}\NormalTok{AGE}\SpecialCharTok{\^{}}\DecValTok{4}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(dfRG}\SpecialCharTok{$}\NormalTok{AGE}\SpecialCharTok{\^{}}\DecValTok{5}\NormalTok{))}
+\FunctionTok{anova}\NormalTok{(f1G,f2G,f3G,f4G,f5G)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Analysis of Variance Table
+## 
+## Model 1: dfRG$GM_VOLUME ~ dfRG$AGE + dfRG$SEX
+## Model 2: dfRG$GM_VOLUME ~ dfRG$AGE + dfRG$SEX + I(dfRG$AGE^2)
+## Model 3: dfRG$GM_VOLUME ~ dfRG$AGE + dfRG$SEX + I(dfRG$AGE^2) + I(dfRG$AGE^3)
+## Model 4: dfRG$GM_VOLUME ~ dfRG$AGE + dfRG$SEX + I(dfRG$AGE^2) + I(dfRG$AGE^3) + 
+##     I(dfRG$AGE^4)
+## Model 5: dfRG$GM_VOLUME ~ dfRG$AGE + dfRG$SEX + I(dfRG$AGE^2) + I(dfRG$AGE^3) + 
+##     I(dfRG$AGE^4) + I(dfRG$AGE^5)
+##   Res.Df    RSS Df Sum of Sq      F  Pr(>F)  
+## 1    259 837304                              
+## 2    258 816401  1   20902.9 6.7248 0.01006 *
+## 3    257 812178  1    4223.3 1.3587 0.24485  
+## 4    256 792634  1   19544.2 6.2877 0.01278 *
+## 5    255 792620  1      14.0 0.0045 0.94663  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\#degree 2 is the better
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(f2G) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = dfRG$GM_VOLUME ~ dfRG$AGE + dfRG$SEX + I(dfRG$AGE^2))
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -194.297  -32.849    1.286   32.477  170.276 
+## 
+## Coefficients:
+##                Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)   149.60912  223.41050   0.670   0.5037    
+## dfRG$AGE       13.88024    6.04425   2.296   0.0225 *  
+## dfRG$SEXMALE   63.50071    7.11428   8.926   <2e-16 ***
+## I(dfRG$AGE^2)  -0.10447    0.04065  -2.570   0.0107 *  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 56.25 on 258 degrees of freedom
+## Multiple R-squared:  0.2907, Adjusted R-squared:  0.2824 
+## F-statistic: 35.24 on 3 and 258 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+p-value: \textless{} 2.2e-16 por lo tanto se acepta el modelo. En el
+caso del predictor AGE, si el resto de variables no varían, por cada
+unidad de AGE que aumenta el volumen cerebral se aumenta en promedio
+13.88024 unidades. Las variables son significativas (al menos `*' 0.05),
+Coeficiente de determinacion R\^{}2(0.2907 o 29\%): es el porcentaje de
+la variación en la variable de respuesta que es explicado por un modelo
+lineal.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot.new}\NormalTok{()}
+\FunctionTok{plot}\NormalTok{(}\FunctionTok{fitted}\NormalTok{(f2G), }\FunctionTok{residuals}\NormalTok{(f2G), }\AttributeTok{xlab =} \StringTok{"Approached values"}\NormalTok{,  }\AttributeTok{ylab =} \StringTok{"Residuals"}\NormalTok{)}
+  \FunctionTok{abline}\NormalTok{(}\AttributeTok{h=}\DecValTok{0}\NormalTok{, }\AttributeTok{lty=}\DecValTok{2}\NormalTok{)}
+    \FunctionTok{lines}\NormalTok{(}\FunctionTok{smooth.spline}\NormalTok{(}\FunctionTok{fitted}\NormalTok{(f2G), }\FunctionTok{residuals}\NormalTok{(f2G)))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ProyectoContrastesRegresion_files/figure-latex/unnamed-chunk-39-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(f2G}\SpecialCharTok{$}\NormalTok{residuals)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ProyectoContrastesRegresion_files/figure-latex/unnamed-chunk-40-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(f2G}\SpecialCharTok{$}\NormalTok{residuals)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+## -194.297  -32.849    1.286    0.000   32.477  170.275
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{boxplot}\NormalTok{(f2G}\SpecialCharTok{$}\NormalTok{residuals)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ProyectoContrastesRegresion_files/figure-latex/unnamed-chunk-40-2.pdf}
+CARET para modelos del volumen de sustancia gris.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{trainIndex }\OtherTok{\textless{}{-}} \FunctionTok{createDataPartition}\NormalTok{(dfRG}\SpecialCharTok{$}\NormalTok{GM\_VOLUME, }
+                                  \AttributeTok{p =}\NormalTok{ .}\DecValTok{8}\NormalTok{, }
+                                  \AttributeTok{list =} \ConstantTok{FALSE}\NormalTok{, }
+                                  \AttributeTok{times =} \DecValTok{1}\NormalTok{)}
+
+\NormalTok{b\_train }\OtherTok{\textless{}{-}}\NormalTok{ dfRG[trainIndex, ]}
+\NormalTok{b\_test  }\OtherTok{\textless{}{-}}\NormalTok{ dfRG[}\SpecialCharTok{{-}}\NormalTok{trainIndex, ]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fitControl }\OtherTok{\textless{}{-}} \FunctionTok{trainControl}\NormalTok{(}\AttributeTok{method =} \StringTok{"repeatedcv"}\NormalTok{,}
+                           \AttributeTok{number =} \DecValTok{10}\NormalTok{,}
+                           \AttributeTok{repeats =} \DecValTok{1}\NormalTok{)}
+
+\CommentTok{\# Y esta función entrena el método}
+\NormalTok{caret\_lm\_model }\OtherTok{\textless{}{-}} \FunctionTok{train}\NormalTok{(GM\_VOLUME }\SpecialCharTok{\textasciitilde{}}\NormalTok{ ., }
+                        \AttributeTok{data =}\NormalTok{ b\_train, }
+                        \AttributeTok{method =} \StringTok{"lm"}\NormalTok{,}
+                        \AttributeTok{trControl =}\NormalTok{ fitControl)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{caret\_lm\_model}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Linear Regression 
+## 
+## 211 samples
+##   2 predictor
+## 
+## No pre-processing
+## Resampling: Cross-Validated (10 fold, repeated 1 times) 
+## Summary of sample sizes: 191, 189, 191, 189, 190, 191, ... 
+## Resampling results:
+## 
+##   RMSE      Rsquared   MAE     
+##   53.67309  0.2873145  42.39242
+## 
+## Tuning parameter 'intercept' was held constant at a value of TRUE
+\end{verbatim}
+
+Podemos observar que se ha conseguido un MSE = 3155.691
+
+Comparación entre modelos.
+
+Con esto, somos capaces de seleccionar el mejor de los métodos (el que
+minimice el error cometido):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#install.packages("kableExtra", dependencies = TRUE)}
+
+\CommentTok{\# Recorremos todos los métodos y tomamos el RMSE de cada uno}
+\NormalTok{best\_rmse }\OtherTok{\textless{}{-}} \FunctionTok{sapply}\NormalTok{(caret\_results, }\ControlFlowTok{function}\NormalTok{(i) }\FunctionTok{min}\NormalTok{(i}\SpecialCharTok{$}\NormalTok{results}\SpecialCharTok{$}\NormalTok{RMSE, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{))}
+
+\CommentTok{\# El mejor será el que tenga un RMSE más bajo}
+\NormalTok{best\_regressor }\OtherTok{\textless{}{-}} \FunctionTok{names}\NormalTok{(best\_rmse)[}\FunctionTok{which.min}\NormalTok{(best\_rmse)]}
+
+\CommentTok{\# Los mostramos en forma de tabla}
+\NormalTok{w }\OtherTok{\textless{}{-}}\NormalTok{ best\_rmse }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{as.data.frame}\NormalTok{()}
+
+\FunctionTok{colnames}\NormalTok{(w) }\OtherTok{\textless{}{-}} \StringTok{"RMSE"}
+
+\NormalTok{w }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{  knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(}\AttributeTok{format =} \StringTok{"html"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ kableExtra}\SpecialCharTok{::}\FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{font\_size =} \DecValTok{14}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+RMSE
+
+knn
+
+58.03122
+
+gbm
+
+51.30519
+
+lm
+
+53.33848
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"El metodo que minimiza la medida del error:"}\NormalTok{,best\_regressor)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## El metodo que minimiza la medida del error: gbm
+\end{verbatim}
+
+Visualización de resultados.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(caret\_results}\SpecialCharTok{$}\NormalTok{gbm)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ProyectoContrastesRegresion_files/figure-latex/unnamed-chunk-47-1.pdf}
+
+modelo de regresion simple y polinomico para modelos con volumen de
+sustancia blanca.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modelo\_1W }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(WM\_VOLUME }\SpecialCharTok{\textasciitilde{}}\NormalTok{ AGE, }\AttributeTok{data =}\NormalTok{ dfRW)}
+\NormalTok{modelo\_2W }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(WM\_VOLUME }\SpecialCharTok{\textasciitilde{}} \FunctionTok{poly}\NormalTok{(AGE, }\DecValTok{2}\NormalTok{), }\AttributeTok{data =}\NormalTok{ dfRW)}
+\NormalTok{modelo\_3W }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(WM\_VOLUME }\SpecialCharTok{\textasciitilde{}} \FunctionTok{poly}\NormalTok{(AGE, }\DecValTok{3}\NormalTok{), }\AttributeTok{data =}\NormalTok{ dfRW)}
+\NormalTok{modelo\_4W }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(WM\_VOLUME }\SpecialCharTok{\textasciitilde{}} \FunctionTok{poly}\NormalTok{(AGE, }\DecValTok{4}\NormalTok{), }\AttributeTok{data =}\NormalTok{ dfRW)}
+\NormalTok{modelo\_5W }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(WM\_VOLUME }\SpecialCharTok{\textasciitilde{}} \FunctionTok{poly}\NormalTok{(AGE, }\DecValTok{5}\NormalTok{), }\AttributeTok{data =}\NormalTok{ dfRW)}
+
+\FunctionTok{anova}\NormalTok{(modelo\_1W, modelo\_2W, modelo\_3W, modelo\_4W, modelo\_5W)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Analysis of Variance Table
+## 
+## Model 1: WM_VOLUME ~ AGE
+## Model 2: WM_VOLUME ~ poly(AGE, 2)
+## Model 3: WM_VOLUME ~ poly(AGE, 3)
+## Model 4: WM_VOLUME ~ poly(AGE, 4)
+## Model 5: WM_VOLUME ~ poly(AGE, 5)
+##   Res.Df    RSS Df Sum of Sq      F  Pr(>F)  
+## 1    260 801032                              
+## 2    259 787862  1   13170.2 4.3057 0.03898 *
+## 3    258 787248  1     613.1 0.2004 0.65475  
+## 4    257 783579  1    3669.5 1.1997 0.27442  
+## 5    256 783042  1     537.4 0.1757 0.67545  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{f1W}\OtherTok{=} \FunctionTok{lm}\NormalTok{(dfRW}\SpecialCharTok{$}\NormalTok{WM\_VOLUME }\SpecialCharTok{\textasciitilde{}}\NormalTok{ dfRW}\SpecialCharTok{$}\NormalTok{AGE }\SpecialCharTok{+}\NormalTok{ dfRW}\SpecialCharTok{$}\NormalTok{SEX)}
+\NormalTok{f2W}\OtherTok{=} \FunctionTok{lm}\NormalTok{(dfRW}\SpecialCharTok{$}\NormalTok{WM\_VOLUME }\SpecialCharTok{\textasciitilde{}}\NormalTok{ dfRW}\SpecialCharTok{$}\NormalTok{AGE }\SpecialCharTok{+}\NormalTok{ dfRW}\SpecialCharTok{$}\NormalTok{SEX }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(dfRW}\SpecialCharTok{$}\NormalTok{AGE}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{))}
+\NormalTok{f3W}\OtherTok{=} \FunctionTok{lm}\NormalTok{(dfRW}\SpecialCharTok{$}\NormalTok{WM\_VOLUME }\SpecialCharTok{\textasciitilde{}}\NormalTok{ dfRW}\SpecialCharTok{$}\NormalTok{AGE }\SpecialCharTok{+}\NormalTok{ dfRW}\SpecialCharTok{$}\NormalTok{SEX }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(dfRW}\SpecialCharTok{$}\NormalTok{AGE}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(dfRW}\SpecialCharTok{$}\NormalTok{AGE}\SpecialCharTok{\^{}}\DecValTok{3}\NormalTok{))}
+\NormalTok{f4W}\OtherTok{=} \FunctionTok{lm}\NormalTok{(dfRW}\SpecialCharTok{$}\NormalTok{WM\_VOLUME }\SpecialCharTok{\textasciitilde{}}\NormalTok{ dfRW}\SpecialCharTok{$}\NormalTok{AGE }\SpecialCharTok{+}\NormalTok{ dfRW}\SpecialCharTok{$}\NormalTok{SEX }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(dfRW}\SpecialCharTok{$}\NormalTok{AGE}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(dfRW}\SpecialCharTok{$}\NormalTok{AGE}\SpecialCharTok{\^{}}\DecValTok{3}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(dfRW}\SpecialCharTok{$}\NormalTok{AGE}\SpecialCharTok{\^{}}\DecValTok{4}\NormalTok{))}
+\NormalTok{f5W}\OtherTok{=} \FunctionTok{lm}\NormalTok{(dfRW}\SpecialCharTok{$}\NormalTok{WM\_VOLUME }\SpecialCharTok{\textasciitilde{}}\NormalTok{ dfRW}\SpecialCharTok{$}\NormalTok{AGE }\SpecialCharTok{+}\NormalTok{ dfRW}\SpecialCharTok{$}\NormalTok{SEX }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(dfRW}\SpecialCharTok{$}\NormalTok{AGE}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(dfRW}\SpecialCharTok{$}\NormalTok{AGE}\SpecialCharTok{\^{}}\DecValTok{3}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(dfRW}\SpecialCharTok{$}\NormalTok{AGE}\SpecialCharTok{\^{}}\DecValTok{4}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(dfRW}\SpecialCharTok{$}\NormalTok{AGE}\SpecialCharTok{\^{}}\DecValTok{5}\NormalTok{))}
+\FunctionTok{anova}\NormalTok{(f1W,f2W,f3W,f4W,f5W)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Analysis of Variance Table
+## 
+## Model 1: dfRW$WM_VOLUME ~ dfRW$AGE + dfRW$SEX
+## Model 2: dfRW$WM_VOLUME ~ dfRW$AGE + dfRW$SEX + I(dfRW$AGE^2)
+## Model 3: dfRW$WM_VOLUME ~ dfRW$AGE + dfRW$SEX + I(dfRW$AGE^2) + I(dfRW$AGE^3)
+## Model 4: dfRW$WM_VOLUME ~ dfRW$AGE + dfRW$SEX + I(dfRW$AGE^2) + I(dfRW$AGE^3) + 
+##     I(dfRW$AGE^4)
+## Model 5: dfRW$WM_VOLUME ~ dfRW$AGE + dfRW$SEX + I(dfRW$AGE^2) + I(dfRW$AGE^3) + 
+##     I(dfRW$AGE^4) + I(dfRW$AGE^5)
+##   Res.Df    RSS Df Sum of Sq      F Pr(>F)
+## 1    259 474157                           
+## 2    258 472150  1    2006.5 1.0955 0.2962
+## 3    257 470945  1    1205.6 0.6582 0.4179
+## 4    256 467115  1    3829.8 2.0909 0.1494
+## 5    255 467060  1      54.7 0.0299 0.8629
+\end{verbatim}
+
+NINGUN MODELO CON P VALUE \textless{} 0.05, por lo que tomamos el modelo
+1: dfRW\(WM_VOLUME ~ dfRW\)AGE + dfRW\$SEX
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(f1W) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = dfRW$WM_VOLUME ~ dfRW$AGE + dfRW$SEX)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -118.795  -25.695   -2.713   27.067  169.415 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  355.9619    26.4085  13.479  < 2e-16 ***
+## dfRW$AGE       0.9657     0.3505   2.755  0.00629 ** 
+## dfRW$SEXMALE  71.7581     5.3702  13.362  < 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 42.79 on 259 degrees of freedom
+## Multiple R-squared:  0.4179, Adjusted R-squared:  0.4134 
+## F-statistic: 92.96 on 2 and 259 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+p-value: \textless{} 2.2e-16 por lo tanto se acepta el modelo. En el
+caso del predictor AGE, si el resto de variables no varían, por cada
+unidad de AGE que aumenta el volumen cerebral se aumenta en promedio
+0.9657 unidades. Las variables son significativas (al menos `*' 0.05),
+Coeficiente de determinacion R\^{}2(0.4179 o 42\%): es el porcentaje de
+la variación en la variable de respuesta que es explicado por un modelo
+lineal.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot.new}\NormalTok{()}
+\FunctionTok{plot}\NormalTok{(}\FunctionTok{fitted}\NormalTok{(f1W), }\FunctionTok{residuals}\NormalTok{(f1W), }\AttributeTok{xlab =} \StringTok{"Approached values"}\NormalTok{,  }\AttributeTok{ylab =} \StringTok{"Residuals"}\NormalTok{)}
+  \FunctionTok{abline}\NormalTok{(}\AttributeTok{h=}\DecValTok{0}\NormalTok{, }\AttributeTok{lty=}\DecValTok{2}\NormalTok{)}
+    \FunctionTok{lines}\NormalTok{(}\FunctionTok{smooth.spline}\NormalTok{(}\FunctionTok{fitted}\NormalTok{(f1W), }\FunctionTok{residuals}\NormalTok{(f1W)))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ProyectoContrastesRegresion_files/figure-latex/unnamed-chunk-51-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(f1W}\SpecialCharTok{$}\NormalTok{residuals)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ProyectoContrastesRegresion_files/figure-latex/unnamed-chunk-52-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(f1W}\SpecialCharTok{$}\NormalTok{residuals)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+## -118.795  -25.695   -2.713    0.000   27.067  169.415
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{boxplot}\NormalTok{(f1W}\SpecialCharTok{$}\NormalTok{residuals)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ProyectoContrastesRegresion_files/figure-latex/unnamed-chunk-52-2.pdf}
+CARET para modelos del volumen de sustancia blanca.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{trainIndex }\OtherTok{\textless{}{-}} \FunctionTok{createDataPartition}\NormalTok{(dfRW}\SpecialCharTok{$}\NormalTok{WM\_VOLUME, }
+                                  \AttributeTok{p =}\NormalTok{ .}\DecValTok{8}\NormalTok{, }
+                                  \AttributeTok{list =} \ConstantTok{FALSE}\NormalTok{, }
+                                  \AttributeTok{times =} \DecValTok{1}\NormalTok{)}
+
+\NormalTok{b\_train }\OtherTok{\textless{}{-}}\NormalTok{ dfRW[trainIndex, ]}
+\NormalTok{b\_test  }\OtherTok{\textless{}{-}}\NormalTok{ dfRW[}\SpecialCharTok{{-}}\NormalTok{trainIndex, ]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fitControl }\OtherTok{\textless{}{-}} \FunctionTok{trainControl}\NormalTok{(}\AttributeTok{method =} \StringTok{"repeatedcv"}\NormalTok{,}
+                           \AttributeTok{number =} \DecValTok{10}\NormalTok{,}
+                           \AttributeTok{repeats =} \DecValTok{1}\NormalTok{)}
+
+\CommentTok{\# Y esta función entrena el método}
+\NormalTok{caret\_lm\_model }\OtherTok{\textless{}{-}} \FunctionTok{train}\NormalTok{(WM\_VOLUME }\SpecialCharTok{\textasciitilde{}}\NormalTok{ ., }
+                        \AttributeTok{data =}\NormalTok{ b\_train, }
+                        \AttributeTok{method =} \StringTok{"lm"}\NormalTok{,}
+                        \AttributeTok{trControl =}\NormalTok{ fitControl)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{caret\_lm\_model}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Linear Regression 
+## 
+## 211 samples
+##   2 predictor
+## 
+## No pre-processing
+## Resampling: Cross-Validated (10 fold, repeated 1 times) 
+## Summary of sample sizes: 189, 189, 191, 189, 191, 191, ... 
+## Resampling results:
+## 
+##   RMSE      Rsquared   MAE     
+##   42.66378  0.4428194  33.44763
+## 
+## Tuning parameter 'intercept' was held constant at a value of TRUE
+\end{verbatim}
+
+Podemos observar que se ha conseguido un MSE = 1825.792.
+
+Comparación entre modelos.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Métodos que queremos ejecutar}
+\NormalTok{methods }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"knn"}\NormalTok{, }\StringTok{"gbm"}\NormalTok{, }\StringTok{"lm"}\NormalTok{)}
+
+\CommentTok{\# Los ejecutamos usando lapply}
+\NormalTok{methods }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{lapply}\NormalTok{(}\ControlFlowTok{function}\NormalTok{(x) \{}
+    
+    \FunctionTok{train}\NormalTok{(WM\_VOLUME }\SpecialCharTok{\textasciitilde{}}\NormalTok{ ., }
+          \AttributeTok{data =}\NormalTok{ b\_train,}
+          \AttributeTok{method =}\NormalTok{ x,}
+          \AttributeTok{trControl =}\NormalTok{ fitControl,}
+          \AttributeTok{verbose =} \ConstantTok{FALSE}\NormalTok{)}
+    
+\NormalTok{  \}) }\OtherTok{{-}\textgreater{}}\NormalTok{ caret\_results}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument 'verbose' will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument 'verbose' will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument 'verbose' will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument 'verbose' will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument 'verbose' will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument 'verbose' will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument 'verbose' will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument 'verbose' will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument 'verbose' will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument 'verbose' will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument 'verbose' will be disregarded
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# A cada elemento del resultado le ponemos nombre}
+\FunctionTok{names}\NormalTok{(caret\_results) }\OtherTok{\textless{}{-}}\NormalTok{ methods}
+\end{Highlighting}
+\end{Shaded}
+
+Con esto, somos capaces de seleccionar el mejor de los métodos (el que
+minimice el error cometido):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#install.packages("kableExtra", dependencies = TRUE)}
+
+\CommentTok{\# Recorremos todos los métodos y tomamos el RMSE de cada uno}
+\NormalTok{best\_rmse }\OtherTok{\textless{}{-}} \FunctionTok{sapply}\NormalTok{(caret\_results, }\ControlFlowTok{function}\NormalTok{(i) }\FunctionTok{min}\NormalTok{(i}\SpecialCharTok{$}\NormalTok{results}\SpecialCharTok{$}\NormalTok{RMSE, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{))}
+
+\CommentTok{\# El mejor será el que tenga un RMSE más bajo}
+\NormalTok{best\_regressor }\OtherTok{\textless{}{-}} \FunctionTok{names}\NormalTok{(best\_rmse)[}\FunctionTok{which.min}\NormalTok{(best\_rmse)]}
+
+\CommentTok{\# Los mostramos en forma de tabla}
+\NormalTok{w }\OtherTok{\textless{}{-}}\NormalTok{ best\_rmse }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{as.data.frame}\NormalTok{()}
+
+\FunctionTok{colnames}\NormalTok{(w) }\OtherTok{\textless{}{-}} \StringTok{"RMSE"}
+
+\NormalTok{w }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{  knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(}\AttributeTok{format =} \StringTok{"html"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ kableExtra}\SpecialCharTok{::}\FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{font\_size =} \DecValTok{14}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+RMSE
+
+knn
+
+44.19115
+
+gbm
+
+40.63349
+
+lm
+
+42.11834
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"El metodo que minimiza la medida del error:"}\NormalTok{,best\_regressor)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## El metodo que minimiza la medida del error: gbm
+\end{verbatim}
+
+Visualización de resultados.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(caret\_results}\SpecialCharTok{$}\NormalTok{gbm)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ProyectoContrastesRegresion_files/figure-latex/unnamed-chunk-59-1.pdf}
+
+Usando como predictores las variables de volumen cebrebral de sustancia
+gris y blanca, así como el sexo, estimar la edad del individuo en
+cuestión utilizando caret.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dfRA}\OtherTok{=}\NormalTok{ df2 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(WM\_VOLUME, GM\_VOLUME,AGE,SEX)}
+
+\NormalTok{trainIndex }\OtherTok{\textless{}{-}} \FunctionTok{createDataPartition}\NormalTok{(dfRA}\SpecialCharTok{$}\NormalTok{AGE, }
+                                  \AttributeTok{p =}\NormalTok{ .}\DecValTok{8}\NormalTok{, }
+                                  \AttributeTok{list =} \ConstantTok{FALSE}\NormalTok{, }
+                                  \AttributeTok{times =} \DecValTok{1}\NormalTok{)}
+
+\NormalTok{b\_train }\OtherTok{\textless{}{-}}\NormalTok{ dfRA[trainIndex, ]}
+\NormalTok{b\_test  }\OtherTok{\textless{}{-}}\NormalTok{ dfRA[}\SpecialCharTok{{-}}\NormalTok{trainIndex, ]}
+\end{Highlighting}
+\end{Shaded}
+
+Comparación entre modelos.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Métodos que queremos ejecutar}
+\NormalTok{methods }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"knn"}\NormalTok{, }\StringTok{"gbm"}\NormalTok{, }\StringTok{"lm"}\NormalTok{)}
+
+\CommentTok{\# Los ejecutamos usando lapply}
+\NormalTok{methods }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{lapply}\NormalTok{(}\ControlFlowTok{function}\NormalTok{(x) \{}
+    
+    \FunctionTok{train}\NormalTok{(AGE }\SpecialCharTok{\textasciitilde{}}\NormalTok{ ., }
+          \AttributeTok{data =}\NormalTok{ b\_train,}
+          \AttributeTok{method =}\NormalTok{ x,}
+          \AttributeTok{trControl =}\NormalTok{ fitControl,}
+          \AttributeTok{verbose =} \ConstantTok{FALSE}\NormalTok{)}
+    
+\NormalTok{  \}) }\OtherTok{{-}\textgreater{}}\NormalTok{ caret\_results}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument 'verbose' will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument 'verbose' will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument 'verbose' will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument 'verbose' will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument 'verbose' will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument 'verbose' will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument 'verbose' will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument 'verbose' will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument 'verbose' will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument 'verbose' will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument 'verbose' will be disregarded
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# A cada elemento del resultado le ponemos nombre}
+\FunctionTok{names}\NormalTok{(caret\_results) }\OtherTok{\textless{}{-}}\NormalTok{ methods}
+\end{Highlighting}
+\end{Shaded}
+
+Con esto, somos capaces de seleccionar el mejor de los métodos (el que
+minimice el error cometido):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#install.packages("kableExtra", dependencies = TRUE)}
+
+\CommentTok{\# Recorremos todos los métodos y tomamos el RMSE de cada uno}
+\NormalTok{best\_rmse }\OtherTok{\textless{}{-}} \FunctionTok{sapply}\NormalTok{(caret\_results, }\ControlFlowTok{function}\NormalTok{(i) }\FunctionTok{min}\NormalTok{(i}\SpecialCharTok{$}\NormalTok{results}\SpecialCharTok{$}\NormalTok{RMSE, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{))}
+
+\CommentTok{\# El mejor será el que tenga un RMSE más bajo}
+\NormalTok{best\_regressor }\OtherTok{\textless{}{-}} \FunctionTok{names}\NormalTok{(best\_rmse)[}\FunctionTok{which.min}\NormalTok{(best\_rmse)]}
+
+\CommentTok{\# Los mostramos en forma de tabla}
+\NormalTok{w }\OtherTok{\textless{}{-}}\NormalTok{ best\_rmse }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{as.data.frame}\NormalTok{()}
+
+\FunctionTok{colnames}\NormalTok{(w) }\OtherTok{\textless{}{-}} \StringTok{"RMSE"}
+
+\NormalTok{w }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{  knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(}\AttributeTok{format =} \StringTok{"html"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ kableExtra}\SpecialCharTok{::}\FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{font\_size =} \DecValTok{14}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+RMSE
+
+knn
+
+7.179391
+
+gbm
+
+6.780608
+
+lm
+
+7.052856
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"El metodo que minimiza la medida del error:"}\NormalTok{,best\_regressor)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## El metodo que minimiza la medida del error: gbm
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fitControl }\OtherTok{\textless{}{-}} \FunctionTok{trainControl}\NormalTok{(}\AttributeTok{method =} \StringTok{"repeatedcv"}\NormalTok{,}
+                           \AttributeTok{number =} \DecValTok{10}\NormalTok{,}
+                           \AttributeTok{repeats =} \DecValTok{1}\NormalTok{)}
+
+\CommentTok{\# Y esta función entrena el método}
+\NormalTok{caret\_lm\_model }\OtherTok{\textless{}{-}} \FunctionTok{train}\NormalTok{(AGE }\SpecialCharTok{\textasciitilde{}}\NormalTok{ ., }
+                        \AttributeTok{data =}\NormalTok{ b\_train, }
+                        \AttributeTok{method =} \StringTok{"lm"}\NormalTok{,}
+                        \AttributeTok{trControl =}\NormalTok{ fitControl)}
+\end{Highlighting}
+\end{Shaded}
+
+Visualización de resultados.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{caret\_results}\SpecialCharTok{$}\NormalTok{lm}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Linear Regression 
+## 
+## 211 samples
+##   3 predictor
+## 
+## No pre-processing
+## Resampling: Cross-Validated (10 fold, repeated 1 times) 
+## Summary of sample sizes: 189, 189, 190, 191, 191, 190, ... 
+## Resampling results:
+## 
+##   RMSE      Rsquared   MAE     
+##   7.052856  0.1695028  5.463117
+## 
+## Tuning parameter 'intercept' was held constant at a value of TRUE
+\end{verbatim}
+
+\#Regresión logística y clasificación Con la regresión logística podemos
+asumir valores para variables binarias.
+
+Queremos poder decidir, a partir de los datos de volumetría cerebral
+contemplados, si un nuevo sujeto puede padecer la enfermedad de
+Alzheimer.
+
+Para ello, construiremos modelos de regresión logística y de
+clasificación para resolver ese problema.
+
+Debemos dividir el dataset en un conjunto de entrenamiento con el 80\%
+de los datos, seleccionado aleatoriamente, y un 20\% restante para
+validar los modelos.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dfRL}\OtherTok{=}\NormalTok{ df2 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(BRAIN\_VOLUME,WM\_VOLUME, GM\_VOLUME,AGE,SEX, CLASS)}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+
+\NormalTok{dfRL}\SpecialCharTok{$}\NormalTok{SEX }\OtherTok{=} \FunctionTok{as.factor}\NormalTok{(dfRL}\SpecialCharTok{$}\NormalTok{SEX)}
+\NormalTok{dfRL}\SpecialCharTok{$}\NormalTok{CLASS }\OtherTok{=} \FunctionTok{as.factor}\NormalTok{(dfRL}\SpecialCharTok{$}\NormalTok{CLASS)}
+\NormalTok{trainIndex }\OtherTok{\textless{}{-}} \FunctionTok{createDataPartition}\NormalTok{(dfRL}\SpecialCharTok{$}\NormalTok{CLASS, }
+                                  \AttributeTok{p =}\NormalTok{ .}\DecValTok{8}\NormalTok{, }
+                                  \AttributeTok{list =} \ConstantTok{FALSE}\NormalTok{, }
+                                  \AttributeTok{times =} \DecValTok{1}\NormalTok{)}
+
+\NormalTok{b\_train }\OtherTok{\textless{}{-}}\NormalTok{ dfRL[trainIndex, ]}
+\NormalTok{b\_test  }\OtherTok{\textless{}{-}}\NormalTok{ dfRL[}\SpecialCharTok{{-}}\NormalTok{trainIndex, ]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gm }\OtherTok{\textless{}{-}} \FunctionTok{glm}\NormalTok{(}\AttributeTok{formula =}\NormalTok{ CLASS }\SpecialCharTok{\textasciitilde{}}\NormalTok{ BRAIN\_VOLUME  }\SpecialCharTok{+}\NormalTok{ WM\_VOLUME }\SpecialCharTok{+}\NormalTok{ GM\_VOLUME }\SpecialCharTok{+}\NormalTok{ AGE }\SpecialCharTok{+}\NormalTok{ SEX, }\AttributeTok{data =}\NormalTok{ b\_train, }\AttributeTok{family =}\NormalTok{ binomial)}
+\FunctionTok{summary}\NormalTok{(gm)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## glm(formula = CLASS ~ BRAIN_VOLUME + WM_VOLUME + GM_VOLUME + 
+##     AGE + SEX, family = binomial, data = b_train)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.7349   0.2763   0.3918   0.5279   1.1665  
+## 
+## Coefficients:
+##               Estimate Std. Error z value Pr(>|z|)    
+## (Intercept)  -0.755961   3.378187  -0.224 0.822931    
+## BRAIN_VOLUME -0.022006   0.007108  -3.096 0.001963 ** 
+## WM_VOLUME     0.027491   0.011415   2.408 0.016025 *  
+## GM_VOLUME     0.030768   0.008819   3.489 0.000485 ***
+## AGE           0.031391   0.031152   1.008 0.313606    
+## SEXMALE       0.501730   0.660292   0.760 0.447337    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 149.26  on 209  degrees of freedom
+## Residual deviance: 133.74  on 204  degrees of freedom
+## AIC: 145.74
+## 
+## Number of Fisher Scoring iterations: 5
+\end{verbatim}
+
+EL modelo nos indica que los predictores volumen cerebral, sustancia
+blanca y gris son signiicativos, y que los predictores AGE y SEX pueden
+ser 0 por lo que serán omitidos para evitar ruido y mermar complejidad
+al modelo.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gm }\OtherTok{\textless{}{-}} \FunctionTok{glm}\NormalTok{(}\AttributeTok{formula =}\NormalTok{ CLASS }\SpecialCharTok{\textasciitilde{}}\NormalTok{ BRAIN\_VOLUME  }\SpecialCharTok{+}\NormalTok{ WM\_VOLUME }\SpecialCharTok{+}\NormalTok{ GM\_VOLUME, }\AttributeTok{data =}\NormalTok{ b\_train, }\AttributeTok{family =}\NormalTok{ binomial)}
+\FunctionTok{summary}\NormalTok{(gm)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## glm(formula = CLASS ~ BRAIN_VOLUME + WM_VOLUME + GM_VOLUME, family = binomial, 
+##     data = b_train)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.7312   0.2638   0.3956   0.5485   1.0208  
+## 
+## Coefficients:
+##               Estimate Std. Error z value Pr(>|z|)    
+## (Intercept)   0.159136   2.110416   0.075 0.939892    
+## BRAIN_VOLUME -0.019525   0.006652  -2.935 0.003333 ** 
+## WM_VOLUME     0.026763   0.011241   2.381 0.017270 *  
+## GM_VOLUME     0.028264   0.008479   3.333 0.000858 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 149.26  on 209  degrees of freedom
+## Residual deviance: 135.16  on 206  degrees of freedom
+## AIC: 143.16
+## 
+## Number of Fisher Scoring iterations: 5
+\end{verbatim}
+
+probar precison sobre el conjunto de validación
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{logit }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(gm,b\_test)}
+\NormalTok{p }\OtherTok{\textless{}{-}} \DecValTok{1} \SpecialCharTok{/}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{+} \FunctionTok{exp}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{logit))}
+\NormalTok{p}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         1         2         3         4         5         6         7         8 
+## 0.7274061 0.3787791 0.8467967 0.7318253 0.8275232 0.9781014 0.9130623 0.7390191 
+##         9        10        11        12        13        14        15        16 
+## 0.9578022 0.7478369 0.8323747 0.9792444 0.9512721 0.9492280 0.6901570 0.9586999 
+##        17        18        19        20        21        22        23        24 
+## 0.7333317 0.9461054 0.9688220 0.9343576 0.5164343 0.9003090 0.8785173 0.3836110 
+##        25        26        27        28        29        30        31        32 
+## 0.9688220 0.8738102 0.8436649 0.8979713 0.7377519 0.8670524 0.8955731 0.9476784 
+##        33        34        35        36        37        38        39        40 
+## 0.9032050 0.9714633 0.9536468 0.8756360 0.8016609 0.9625171 0.9489705 0.9609344 
+##        41        42        43        44        45        46        47        48 
+## 0.8655487 0.7240897 0.8580354 0.8395252 0.8381907 0.8878290 0.8852617 0.8090749 
+##        49        50        51        52 
+## 0.9837312 0.9294216 0.7714408 0.9331627
+\end{verbatim}
+
+Crear un modelo de regresión logística adecuado (especialmente, en el
+que los predictores sean significativos) para la variable CLASS. ¿Qué
+precisión tiene ese modelo si lo ejecutamos (usando predict()) sobre el
+conjunto de validación?
+
+Asimismo, se desea construir una serie de modelos de clasificación
+binaria con caret que, utilizando todos los parámetros disponibles,
+estime la clase (CLASS) a la que pertenece cada individuo. Para ello:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{folds }\OtherTok{\textless{}{-}} \FunctionTok{createFolds}\NormalTok{(dfRL}\SpecialCharTok{$}\NormalTok{CLASS, }\AttributeTok{k =} \DecValTok{5}\NormalTok{)}
+\CommentTok{\# Validación cruzada}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\NormalTok{fitControl }\OtherTok{\textless{}{-}} \FunctionTok{trainControl}\NormalTok{(}\AttributeTok{method =} \StringTok{"repeatedcv"}\NormalTok{,}
+                           \AttributeTok{number =} \DecValTok{5}\NormalTok{,}
+                           \AttributeTok{repeats =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{methods }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"svmLinear"}\NormalTok{, }\StringTok{"rpart"}\NormalTok{, }\StringTok{"regLogistic"}\NormalTok{, }\StringTok{"C5.0"}\NormalTok{)}
+
+\CommentTok{\# Se ejecutan}
+\NormalTok{methods }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{lapply}\NormalTok{(}\ControlFlowTok{function}\NormalTok{(x) \{}
+    
+\NormalTok{    caret}\SpecialCharTok{::}\FunctionTok{train}\NormalTok{(CLASS }\SpecialCharTok{\textasciitilde{}}\NormalTok{ ., }
+                 \AttributeTok{data =}\NormalTok{ b\_train,}
+                 \AttributeTok{method =}\NormalTok{ x,}
+                 \AttributeTok{trControl =}\NormalTok{ fitControl)}
+    
+\NormalTok{  \}) }\OtherTok{{-}\textgreater{}}\NormalTok{ caret\_class\_results}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: 'trials' should be <= 1 for this object. Predictions generated using 1
+## trials
+
+## Warning: 'trials' should be <= 1 for this object. Predictions generated using 1
+## trials
+
+## Warning: 'trials' should be <= 1 for this object. Predictions generated using 1
+## trials
+
+## Warning: 'trials' should be <= 1 for this object. Predictions generated using 1
+## trials
+
+## Warning: 'trials' should be <= 1 for this object. Predictions generated using 1
+## trials
+
+## Warning: 'trials' should be <= 1 for this object. Predictions generated using 1
+## trials
+
+## Warning: 'trials' should be <= 1 for this object. Predictions generated using 1
+## trials
+
+## Warning: 'trials' should be <= 1 for this object. Predictions generated using 1
+## trials
+
+## Warning: 'trials' should be <= 1 for this object. Predictions generated using 1
+## trials
+
+## Warning: 'trials' should be <= 1 for this object. Predictions generated using 1
+## trials
+
+## Warning: 'trials' should be <= 1 for this object. Predictions generated using 1
+## trials
+
+## Warning: 'trials' should be <= 1 for this object. Predictions generated using 1
+## trials
+
+## Warning: 'trials' should be <= 1 for this object. Predictions generated using 1
+## trials
+
+## Warning: 'trials' should be <= 1 for this object. Predictions generated using 1
+## trials
+
+## Warning: 'trials' should be <= 1 for this object. Predictions generated using 1
+## trials
+
+## Warning: 'trials' should be <= 1 for this object. Predictions generated using 1
+## trials
+
+## Warning: 'trials' should be <= 1 for this object. Predictions generated using 1
+## trials
+
+## Warning: 'trials' should be <= 1 for this object. Predictions generated using 1
+## trials
+
+## Warning: 'trials' should be <= 1 for this object. Predictions generated using 1
+## trials
+
+## Warning: 'trials' should be <= 1 for this object. Predictions generated using 1
+## trials
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{names}\NormalTok{(caret\_class\_results) }\OtherTok{\textless{}{-}}\NormalTok{ methods}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Recorremos todos los resultados, almacenando la métrica}
+\CommentTok{\# accuracy (la precisión)}
+\NormalTok{best\_acc }\OtherTok{\textless{}{-}} \FunctionTok{sapply}\NormalTok{(caret\_class\_results, }\ControlFlowTok{function}\NormalTok{(i) }\FunctionTok{max}\NormalTok{(i}\SpecialCharTok{$}\NormalTok{results}\SpecialCharTok{$}\NormalTok{Accuracy, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{))}
+
+\NormalTok{best\_classifier }\OtherTok{\textless{}{-}} \FunctionTok{names}\NormalTok{(best\_acc)[}\FunctionTok{which.max}\NormalTok{(best\_acc)]}
+
+\NormalTok{w }\OtherTok{\textless{}{-}}\NormalTok{ best\_acc }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{as.data.frame}\NormalTok{()}
+
+\FunctionTok{colnames}\NormalTok{(w) }\OtherTok{\textless{}{-}} \StringTok{"Accuracy"}
+
+\NormalTok{w }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{  knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(}\AttributeTok{format =} \StringTok{"html"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{  kableExtra}\SpecialCharTok{::}\FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{font\_size =} \DecValTok{14}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Accuracy
+
+svmLinear
+
+0.8858034
+
+rpart
+
+0.8858034
+
+regLogistic
+
+0.8905653
+
+C5.0
+
+0.8858034
+
+En este caso, el mejor clasificador ha sido regLogistic con una
+precisión de 89\%.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{predicted\_class }\OtherTok{\textless{}{-}}\NormalTok{ caret\_class\_results[[best\_classifier]] }\SpecialCharTok{\%\textgreater{}\%}  
+  \FunctionTok{predict}\NormalTok{(b\_test)}
+
+\FunctionTok{confusionMatrix}\NormalTok{(predicted\_class, b\_test}\SpecialCharTok{$}\NormalTok{CLASS)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction AD HEALTHY
+##    AD       1       1
+##    HEALTHY  5      45
+##                                           
+##                Accuracy : 0.8846          
+##                  95% CI : (0.7656, 0.9565)
+##     No Information Rate : 0.8846          
+##     P-Value [Acc > NIR] : 0.6065          
+##                                           
+##                   Kappa : 0.2041          
+##                                           
+##  Mcnemar's Test P-Value : 0.2207          
+##                                           
+##             Sensitivity : 0.16667         
+##             Specificity : 0.97826         
+##          Pos Pred Value : 0.50000         
+##          Neg Pred Value : 0.90000         
+##              Prevalence : 0.11538         
+##          Detection Rate : 0.01923         
+##    Detection Prevalence : 0.03846         
+##       Balanced Accuracy : 0.57246         
+##                                           
+##        'Positive' Class : AD              
+## 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(caret\_class\_results[[best\_classifier]])}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ProyectoContrastesRegresion_files/figure-latex/unnamed-chunk-74-1.pdf}
+
+\# Inferencia Bayesiana
+
+Estudio de la incidencia de la enfermedad de Alzheimer en la
+población.estima que, a priori, la incidencia de la enfermedad de
+Alzheimer en la población mayor de 60 años está entre un 7\% y un 9\%.
+
+Para comprobarlo, usaremos inferencia bayesiana con el dataset que
+estamos estudiando:
+
+Estimar la distribución a posteriori de la proporción θ de casos de
+Alzheimer, partiendo de un prior no informativo (uniforme en {[}0,1{]}),
+y partiendo de un prior con forma de trapecio, tal y como se ve en la
+siguiente figura:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#theta =c(0.07,0.08,0.09)}
+\CommentTok{\#pTheta \textless{}{-} pmin(theta, 1 {-} theta)}
+\CommentTok{\#pTheta}
+\CommentTok{\#pDatosDadoTheta \textless{}{-} choose(N, nCaras) * theta\^{} nCaras * (1 {-} theta)\^{}nCruz}
+\CommentTok{\#plot(theta, pTheta)}
+\end{Highlighting}
+\end{Shaded}
+
+\#\#Bibliografias
+
+\url{https://blog.minitab.com/es/analisis-de-regresion-como-puedo-interpretar-el-r-cuadrado-y-evaluar-la-bondad-de-ajuste}
+
+\end{document}
