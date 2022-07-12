@@ -1,1 +1,1 @@
-
+# Reglas de sociación FCA
